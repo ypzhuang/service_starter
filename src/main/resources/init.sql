@@ -1,0 +1,15 @@
+truncate table dictionary;
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','公用', '删除状态','1000','有效', '0',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','公用', '删除状态','1000','删除', '1',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','公用', '是否启用','1008','启用', '100801',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','公用', '是否启用','1008','停用', '100802',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','店铺', '营业状态','1020','营业', '102001',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','店铺', '营业状态','1020','歇业', '102002',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','商品', '商品状态','1030','在售', '103001',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','商品', '商品状态','1030','暂售', '103002',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','客户', '客户状态','1040','正常', '104001',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','客户', '客户状态','1040','异常', '104002',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','订单', '订单状态','1050','已新建', '105001',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','订单', '订单状态','1050','待支付', '105002',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','订单', '订单状态','1050','已支付', '105003',  '');
+INSERT INTO `dictionary`(`created_by`, `enable`,`module`, `type_name`,`type_code`, `name`,`value`,`remark`)  VALUES (-1,'100801','订单', '订单状态','1050','已取消', '105004',  '');

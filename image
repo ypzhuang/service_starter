@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker build -t basic .
+docker stop basic_s && docker rm basic_s
+docker run --name basic_s -e "SPRING_PROFILES_ACTIVE=dev" -e "spring_datasource_url=jdbc:mysql://10.1.70.99:3306/yhj?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false" -p 9080:8080  --rm  basic

@@ -1,0 +1,38 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./config:/etc/mysql/conf.d
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=spm
+    ports:
+      - "3306:3306"
+      
+  test-db:
+    image: mysql:5.7
+    volumes:
+      - ./config:/etc/mysql/conf.d
+      - ./data/mysql-test:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=spm-test
+    ports:
+      - "33060:3306"
+      
+  redis:
+    image: redis:4.0.12-alpine
+    volumes:
+      - ./data/redis:/data    
+    ports:
+      - "6379:6379"
+      
+  geo_service:
+    image: registry.cn-shanghai.aliyuncs.com/infrastr/geo_service:latest 
+    ports:
+      - "9988:8080"    
+     
+      
+      

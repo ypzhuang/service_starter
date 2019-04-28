@@ -1,0 +1,23 @@
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+
+        maven {
+            credentials {
+                username 'OLWrHd'
+                password 'MLeWN46Kku'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/40760-release-vOpnwm/'
+        }
+        maven {
+            credentials {
+                username 'OLWrHd'
+                password 'MLeWN46Kku'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/40760-snapshot-RTWya3/'
+        }
+
+    }
+}
