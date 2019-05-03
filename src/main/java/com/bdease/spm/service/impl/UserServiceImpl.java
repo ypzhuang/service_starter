@@ -16,6 +16,7 @@ import com.bdease.spm.service.IUserService;
 import com.bdease.spm.service.IUserShopService;
 import com.bdease.spm.utils.SetOperation;
 import com.bdease.spm.vo.UserVO;
+import com.google.gson.Gson;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -33,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +66,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private IUserShopService userShopService;
     
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     
     @Transactional(rollbackFor = Exception.class)
     public void saveUser(User user) {
@@ -226,5 +230,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	private void checkUserRepetition(String userName, Long forUpdateId) {
 		User user = this.getOne(new LambdaQueryWrapperAdapter<User>().eq(User::getUsername, userName));
 		Asserts.check(user == null || forUpdateId != null && user.getId().equals(forUpdateId), "重复的手机号/用户名:%s",userName);
+	} 
+
+	@Override
+	public Shop getActiveShopOfCurrentUser() {
+		String key = String.format("ActiveShopId:%d", JwtUser.currentUserId());
+		Gson gson = new Gson();
+		return gson.fromJson(stringRedisTemplate.opsForValue().get(key), Shop.class);
+	}
+
+	@Override
+	public Shop setActiveShopOfCurrentUser(Long shopId) {
+		Gson gson = new Gson();
+		String key = String.format("ActiveShopId:%d", JwtUser.currentUserId());
+		List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());
+		Asserts.check(shopIds.contains(shopId), "您不属于这家店？%d", shopId);
+		Shop activeShop = this.shopService.getShop(shopId);
+		stringRedisTemplate.opsForValue().set(key, gson.toJson(activeShop));
+		return activeShop;
 	}
 }

@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.bdease.spm.entity.BaseEntity;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.bdease.spm.entity.enums.DelFlag;
 import com.bdease.spm.entity.enums.OrderStatus;
@@ -71,5 +73,6 @@ public class GuestOrder extends BaseEntity {
     @ApiModelProperty(value = "销售人员名称")
     private String soldByName;
 
-
+    @ApiModelProperty(value = "订单明细")
+    private transient List<OrderItem> items = new ArrayList<>();
 }

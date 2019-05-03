@@ -5,10 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.Photo;
+import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IPhotoService;
+import com.bdease.spm.service.IShopService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +33,9 @@ import org.springframework.web.bind.annotation.*;
 public class PhotoController extends BaseController {
     @Autowired
     private IPhotoService photoService;
+    
+    @Autowired
+    private IShopService shopService;
 
     @GetMapping
     @ApiOperation(value = "分页查询护理照片")
@@ -36,8 +45,10 @@ public class PhotoController extends BaseController {
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
     ) {
         Page<Photo> page = new Page<>(current,size);
+        List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());
         return this.photoService.page(page,new LambdaQueryWrapperAdapter<Photo>()
                 .eq(Photo::getMiniUserId,miniProgramUserId)
+                .in(Photo::getShopId, shopIds)
         );
     }
 

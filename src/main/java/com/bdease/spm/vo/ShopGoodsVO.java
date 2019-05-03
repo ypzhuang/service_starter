@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Data
 @ApiModel(value="ShopGoodsVO对象", description="店铺在售商品")
 public class ShopGoodsVO {
-    @ApiModelProperty(value = "ShopGoods ID")
+    @ApiModelProperty(value = "Goods ID")
     private Long id;
 
     @ApiModelProperty(value = "商品照片URL")

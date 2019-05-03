@@ -5,6 +5,8 @@ import com.bdease.spm.config.InitUserConfiguration;
 import com.bdease.spm.entity.*;
 import com.bdease.spm.entity.enums.*;
 import com.bdease.spm.service.*;
+import com.bdease.spm.vo.OrderItemVO;
+import com.bdease.spm.vo.OrderVO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,9 @@ import javax.annotation.PostConstruct;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class Bootstrap {
@@ -45,21 +49,24 @@ public class Bootstrap {
 	@Autowired
 	private IGoodsService goodsService;
 
-
 	@Autowired
 	private IShopGoodsService shopGoodsService;
+	
+	@Autowired
+	private IOrderService orderService;
 
 	@PostConstruct
 	public void bootstrap() {		
 		if(!isProd()) {
 			initShops();
-			initGoods();
+			initGoods();			
 		}
 		
 		initUserAndRole();
 		
 		if(!isProd()) {
 			initMiniUser();
+			initOrders();
 		}		
 	}
 
@@ -120,6 +127,40 @@ public class Bootstrap {
 		shopGoods.setPrice(new BigDecimal(149));
 		shopGoodsService.save(shopGoods);
 	}
+	
+	private void initOrders() {
+		for (int i = 0; i < 3; i++) {
+			OrderVO orderVO = new OrderVO();
+			orderVO.setDiscountAmount(new BigDecimal(20));
+			MiniProgramUser miniProgramUser = miniProgramUserService.getMiniProgramUserByOpenId(openIDs[i % 2]);
+			orderVO.setMiniUserId(miniProgramUser.getId());
+			orderVO.setPayAmount(new BigDecimal(580));
+			Shop shop = shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店2店"));
+			orderVO.setShopId(shop.getId());
+			User user = userService.findUserByUsername("shopAdmin");
+			orderVO.setSoldBy(user.getId());
+
+			List<OrderItemVO> orderItems = new ArrayList<>();
+			OrderItemVO item = null;
+			Goods goods = null;
+			item = new OrderItemVO();
+			goods = goodsService.getOne(new LambdaQueryWrapperAdapter<Goods>().eq(Goods::getName, "飘柔"));
+			item.setGoodsId(goods.getId());
+			item.setPrice(new BigDecimal(150));
+			item.setQuantity(2);
+			orderItems.add(item);
+
+			item = new OrderItemVO();
+			goods = goodsService.getOne(new LambdaQueryWrapperAdapter<Goods>().eq(Goods::getName, "海飞丝"));
+			item.setGoodsId(goods.getId());
+			item.setPrice(new BigDecimal(100));
+			item.setQuantity(3);
+			orderItems.add(item);
+
+			orderVO.setOrderItems(orderItems);
+			orderService.createOrder(orderVO);
+		}
+	}
 
 
 	private void initUserAndRole() {
@@ -141,7 +182,7 @@ public class Bootstrap {
 				userService.saveUser(user);
 				
 				if(!isProd()) {
-					if(authority.getName().equals(AuthorityName.ROLE_SHOP_MANAGER)) {
+					if(authority.getName().equals(AuthorityName.ROLE_MANAGER)) {
 						UserShop userShop = new UserShop();
 						userShop.setUserId(user.getId());
 						Shop shop = shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店"));
@@ -178,10 +219,12 @@ public class Bootstrap {
 	
 
 	private static final String []openIDs = new String[] {"olOXT5N6iMh6Pvg8gIaFoulqK6L0","olOXT5FPGvMpSZjWYhlqTiRM3-2o"};
-	private void initMiniUser() {		
+	private void initMiniUser() {
+		Shop shop = shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店2店"));
 		Arrays.stream(openIDs).forEach(openID -> {
 			MiniProgramUser miniProgramUser = new MiniProgramUser();
-			miniProgramUser.setOpenId(openID);		
+			miniProgramUser.setOpenId(openID);
+			miniProgramUser.setShopId(shop.getId());
 			miniProgramUserService.saveOrUpateMiniProgramUser(miniProgramUser);	
 		});
 	}

@@ -4,6 +4,9 @@ import com.bdease.spm.entity.Photo;
 import com.bdease.spm.mapper.PhotoMapper;
 import com.bdease.spm.service.IPhotoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import java.time.LocalDate;
+
 import org.apache.http.util.Asserts;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +32,9 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
         Asserts.check(photo != null, "不存在的照片ID:%d",id);
         return photo;
     }
+
+	@Override
+	public LocalDate getLatestTakedPhotoDate(Long guestId) {		
+		return this.baseMapper.getLatestTakedPhotoDate(guestId);
+	}
 }

@@ -1,6 +1,9 @@
 package com.bdease.spm.service;
 
 import com.bdease.spm.entity.Photo;
+
+import java.time.LocalDate;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -14,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IPhotoService extends IService<Photo> {
 
     void deletePhoto(Long id);
+    
+    LocalDate getLatestTakedPhotoDate(Long guestId);
 }

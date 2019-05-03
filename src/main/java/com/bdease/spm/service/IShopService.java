@@ -24,6 +24,8 @@ public interface IShopService extends IService<Shop> {
 	Shop getShop(Long id);
 	
 	Shop findShop(Long id);
+	
+	Shop getOpeningShop(Long id);
 
 	List<Long> getOwnShopIds(Long userId);
 

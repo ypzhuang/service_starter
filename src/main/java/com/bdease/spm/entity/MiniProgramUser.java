@@ -72,6 +72,9 @@ public class MiniProgramUser extends BaseEntity {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate lastOrderDate;
+    
+    @ApiModelProperty(value = "订单数")
+    private Long orderCount;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate lastPictureDate;

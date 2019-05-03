@@ -103,7 +103,7 @@ public class ShopController extends BaseController {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "更新店铺")
-    public Shop updatePlotById(@PathVariable Long id, @Valid @RequestBody ShopVO shopVO) {
+    public Shop updateShopById(@PathVariable Long id, @Valid @RequestBody ShopVO shopVO) {
         Shop pShop = this.shopService.getShop(id);
         Asserts.check(pShop != null, "不存在的店铺ID：%d", id);
 

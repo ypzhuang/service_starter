@@ -39,6 +39,10 @@ public interface IUserService extends IService<User> {
 	
 	List<Shop> getCurrentUserShops();
 	
+	Shop getActiveShopOfCurrentUser();
+	
+	Shop setActiveShopOfCurrentUser(Long shopId);
+	
 	void deleteUser(Long id);
 
 	User saveOrUpdateUser(Long id,UserVO userVO);

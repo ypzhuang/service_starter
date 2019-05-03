@@ -148,27 +148,26 @@ role:
       role: ROLE_SHOP_USER
       user: shopUser
       password: 12345678
-    - 
-      #管理员(合伙人)
+    -
+      #店长
       role: ROLE_SHOP_ADMIN
       user: shopAdmin
       password: 12345678
-    -
-      #店长
-      role: ROLE_SHOP_MANAGER
-      user: shopManager
-      password: 12345678
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
+    - 
+      #管理员(合伙人)
+      role: ROLE_MANAGER
+      user: manager
       password: 12345678
     -
       #超级管理员
       role: ROLE_SUPER_ADMIN
       user: superAdmin
       password: 12345678
-
+    -
+      #客人
+      role: ROLE_GUEST
+      user: guest
+      password: 12345678
 
 file:
   tmp-delete: false
@@ -246,25 +245,25 @@ role:
       role: ROLE_SHOP_USER
       user: shopUser
       password: 12345678@prod
-    - 
-      #管理员(合伙人)
+    -
+      #店长
       role: ROLE_SHOP_ADMIN
       user: shopAdmin
       password: 12345678@prod
-    -
-      #店长
-      role: ROLE_SHOP_MANAGER
-      user: shopManager
-      password: 12345678@prod
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
+    - 
+      #管理员(合伙人)
+      role: ROLE_MANAGER
+      user: manager
       password: 12345678@prod
     -
       #超级管理员
       role: ROLE_SUPER_ADMIN
       user: superAdmin
+      password: 12345678@prod
+    -
+      #客人
+      role: ROLE_GUEST
+      user: guest
       password: 12345678@prod
 
 file:
@@ -339,13 +338,13 @@ role:
       password: 12345678@test1
     - 
       #管理员(合伙人)
-      role: ROLE_SHOP_ADMIN
-      user: shopAdmin
+      role: ROLE_MANAGER
+      user: manager
       password: 12345678@test1
     -
       #店长
-      role: ROLE_SHOP_MANAGER
-      user: shopManager
+      role: ROLE_SHOP_ADMIN
+      user: shopAdmin
       password: 12345678@test1
     -
       #客人

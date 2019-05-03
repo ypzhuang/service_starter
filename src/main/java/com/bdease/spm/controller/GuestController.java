@@ -33,7 +33,7 @@ public class GuestController extends BaseController {
     @SuppressWarnings("unchecked")
 	@GetMapping
     @ApiOperation(value = "分页查询客户")
-    public IPage<MiniProgramUser> getBrokersByPage(
+    public IPage<MiniProgramUser> getGuestByPage(
             @ApiParam(value = "客户姓名、手机号或微信昵称",required = false) @RequestParam(required = false) String user,
             @ApiParam(value = "所属店铺",required = false) @RequestParam(required = false) Long shopId,
             @ApiParam(value = "N月未拍照", required = false) @RequestParam(required = false) Integer monthsOfNoPictures,

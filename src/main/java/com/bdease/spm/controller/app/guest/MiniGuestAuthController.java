@@ -4,7 +4,7 @@
  * TODO 功能描述
  */
 
-package com.bdease.spm.controller.app;
+package com.bdease.spm.controller.app.guest;
 
 
 import java.time.Duration;
@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.bdease.spm.controller.app.MiniBaseController;
 import com.bdease.spm.entity.MiniProgramUser;
 import com.bdease.spm.entity.User;
 import com.bdease.spm.ex.ApplicationException;
@@ -45,12 +46,14 @@ import com.bdease.spm.vo.EncryptedMiniUserVO;
 import com.bdease.spm.wechat.WXBizDataCrypt;
 import com.google.gson.Gson;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/app/auth")
-public class MiniAuthController extends MiniBaseController {
+@RequestMapping("/app/guest/v1/auth")
+@Api(tags={"MiniGuest"})
+public class MiniGuestAuthController extends MiniBaseController {
 	@Value("${app.mini.loginURL}")
 	private String loginURLFormat;
 	

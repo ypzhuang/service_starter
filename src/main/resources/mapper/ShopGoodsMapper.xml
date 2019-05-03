@@ -3,7 +3,7 @@
 <mapper namespace="com.bdease.spm.mapper.ShopGoodsMapper">
     <select id="pageShopGoods" resultType="com.bdease.spm.vo.ShopGoodsVO">
         SELECT
-        sg.id,
+        g.id,
         sg.shop_id,
         sg.price shop_price,
         s.name AS shop_name,
@@ -32,7 +32,10 @@
         AND g.del_flag = '0'
         AND g.status = '103001'
         <if test="shopIds != null and shopIds.size() > 0">
-            AND sg.shop_id in (#{shopIds})
+        	AND sg.shop_id in
+        	<foreach collection="shopIds" item="shopId" index="index" open="(" close=")" separator=",">
+            	#{shopId}
+       		 </foreach>       
         </if>
     </select>
 

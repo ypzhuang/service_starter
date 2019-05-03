@@ -8,6 +8,8 @@ import com.bdease.spm.entity.GuestOrder;
 import com.bdease.spm.entity.OrderItem;
 import com.bdease.spm.service.IOrderItemService;
 import com.bdease.spm.service.IOrderService;
+import com.bdease.spm.vo.OrderVO;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -55,5 +57,8 @@ public class OrderController extends BaseController {
     ) {
         return this.orderItemService.list(new LambdaQueryWrapperAdapter<OrderItem>().eq(OrderItem::getOrderId,id));
     }
-
+    
+    public void createOrder(OrderVO orderVO) {
+    	 this.orderService.createOrder(orderVO);
+    }
 }

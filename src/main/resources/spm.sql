@@ -153,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `mini_program_user` (
   `last_picture_date` DATE NULL COMMENT '最新拍照日期',
   `name` VARCHAR(100) NULL COMMENT '姓名',
   `status` VARCHAR(6) NULL,
+  `order_count` BIGINT(20) NULL DEFAULT 0 COMMENT '订单数',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = '客户信息'

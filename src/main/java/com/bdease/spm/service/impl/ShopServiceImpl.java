@@ -3,6 +3,7 @@ package com.bdease.spm.service.impl;
 import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.*;
 import com.bdease.spm.entity.enums.AuthorityName;
+import com.bdease.spm.entity.enums.ShopStatus;
 import com.bdease.spm.mapper.ShopMapper;
 import com.bdease.spm.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -86,6 +87,14 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 		addUserInformations(shop);
 		return shop;
 	}
+	
+	@Override
+	public Shop getOpeningShop(Long id) {
+		Shop shop = this.getById(id);
+		Asserts.check(shop != null && ShopStatus.OPEN.equals(shop.getStatus()), "不存在或者暂停协议的店铺id:%d",id);
+		addUserInformations(shop);
+		return shop;
+	}
 
 	@Override
 	public void addUserInformations(Shop shop) {
@@ -109,7 +118,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 	}
 
 	public User getShopManager(Long shopId) {
-		List<User> shopMangers = userService.findUsers(shopId,AuthorityName.ROLE_SHOP_MANAGER);
+		List<User> shopMangers = userService.findUsers(shopId,AuthorityName.ROLE_MANAGER);
 		log.debug("shopMangers:{}",shopMangers);
 		Asserts.check(shopMangers.size() <= 1,"异常：不支持一店多管理员");
 		if(shopMangers.size() == 1) {
@@ -135,7 +144,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 			shopIds = shops.stream().map(s -> s.getId()).collect(Collectors.toList());
 			stringRedisTemplate.opsForValue().set(key, gson.toJson(shopIds), Duration.ofSeconds(86400));
 		}
-
+		log.debug("UserId:{} in ShopId:{}",userId, shopIds);
 		return shopIds;
 	}
 
@@ -168,7 +177,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 		Long shopManagerId = shopVO.getShopManager();
 		log.debug("Process shopManager:{}",shopManagerId);
 		if(shopManagerId != null) {
-			modifyUserRoleRelation(shopManagerId, AuthorityName.ROLE_SHOP_MANAGER);
+			modifyUserRoleRelation(shopManagerId, AuthorityName.ROLE_MANAGER);
 		} else {
 			User shopManager = getShopManager(shop.getId());
 			if(shopManager != null) {

@@ -139,25 +139,25 @@ role:
       role: ROLE_SHOP_USER
       user: shopUser
       password: 12345678@test
-    - 
-      #管理员(合伙人)
+    -
+      #店长
       role: ROLE_SHOP_ADMIN
       user: shopAdmin
       password: 12345678@test
-    -
-      #店长
-      role: ROLE_SHOP_MANAGER
-      user: shopManager
-      password: 12345678@test
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
+    - 
+      #管理员(合伙人)
+      role: ROLE_MANAGER
+      user: manager
       password: 12345678@test
     -
       #超级管理员
       role: ROLE_SUPER_ADMIN
       user: superAdmin
+      password: 12345678@test  
+    -
+      #客人
+      role: ROLE_GUEST
+      user: guest
       password: 12345678@test
 
 file:
