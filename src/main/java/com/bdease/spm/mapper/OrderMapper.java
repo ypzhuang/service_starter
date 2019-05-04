@@ -1,6 +1,5 @@
 package com.bdease.spm.mapper;
 
-import com.bdease.spm.entity.Goods;
 import com.bdease.spm.entity.GuestOrder;
 import com.bdease.spm.vo.DailySaleVO;
 import com.bdease.spm.vo.SaleRecordVO;
