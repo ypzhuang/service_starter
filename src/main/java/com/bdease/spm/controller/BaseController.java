@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -125,7 +126,14 @@ public class BaseController {
         log.error("用户名或密码错误。");
         return new ErrorResponse("用户名或密码错误。");
     }
-
+    
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadCredentialsException.class)
+    public ErrorResponse exception(BadCredentialsException e) {
+        log.error("用户名或密码错误。");
+        return new ErrorResponse("用户名或密码错误。");
+    }
+    
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DisabledException.class)
     public ErrorResponse exception(DisabledException e) {
@@ -158,6 +166,7 @@ public class BaseController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AccessDeniedException.class)
     public ErrorResponse exception(AccessDeniedException e) {
+    	log.error("Access Denied Exception:",e);  
         return new ErrorResponse(e.getMessage());
     }   
 }

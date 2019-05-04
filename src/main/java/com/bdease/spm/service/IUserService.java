@@ -31,6 +31,8 @@ public interface IUserService extends IService<User> {
 	
 	User getUserByOpenId(String openId);
 	
+	User getUser(Long id);	
+	
 	IPage<User> pageUsers(Page<User> page, 
 			String nameOrUserName, 
 			Long shopId, 
@@ -48,5 +50,7 @@ public interface IUserService extends IService<User> {
 	User saveOrUpdateUser(Long id,UserVO userVO);
 
 	List<User> findUsers(Long shopId,AuthorityName role);
+
+	void updatePassword(Long id, String newPassword);
 	
 }

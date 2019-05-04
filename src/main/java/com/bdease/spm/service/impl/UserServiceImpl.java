@@ -249,4 +249,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		stringRedisTemplate.opsForValue().set(key, gson.toJson(activeShop));
 		return activeShop;
 	}
+
+
+
+	@Override
+	public User getUser(Long id) {
+		User user = this.getById(id);
+		Asserts.check(user != null, "不存在的用户ID:%d",id);
+		return user;
+	}
+
+
+    @Transactional
+	@Override
+	public void updatePassword(Long id, String newPassword) {
+		User user = new User();
+		user.setId(id);
+		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+		user.setLastPasswordResetDate(LocalDateTime.now());
+		this.updateById(user);		
+	}
 }

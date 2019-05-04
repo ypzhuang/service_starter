@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bdease.spm.mapper.OrderMapper">
-
+<select id="pageSaleRecord" resultType="com.bdease.spm.vo.SaleRecordVO">
+    SELECT 
+    u.avatar_url,
+    u.nick_name,
+    u.name,
+    o.order_date,
+    o.pay_amount,
+    o.sold_by_name
+FROM
+    guest_order o,
+    mini_program_user u
+WHERE
+    o.mini_user_id = u.id
+    AND o.order_date > DATE_SUB(NOW(), INTERVAL 3 DAY) 
+        
+        <if test="soldBy != null">
+            AND o.sold_by =  #{soldBy}
+        </if>
+         <if test="shopId != null">
+            AND o.shop_id =  #{shopId}
+        </if>
+        
+    </select>
 </mapper>

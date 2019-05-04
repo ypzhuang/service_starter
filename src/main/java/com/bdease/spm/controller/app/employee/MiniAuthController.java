@@ -2,24 +2,31 @@ package com.bdease.spm.controller.app.employee;
 
 
 import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bdease.spm.controller.app.MiniBaseController;
+import com.bdease.spm.entity.User;
 import com.bdease.spm.security.JwtAuthenticationRequest;
 import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.security.service.JwtAuthenticationResponse;
 import com.bdease.spm.service.IShopService;
 import com.bdease.spm.service.IUserService;
+import com.bdease.spm.vo.ChangePasswdVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +34,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/app/emp/v1")
+@RequestMapping("/app/emp/v1/auth")
 @Api(tags={"MiniEmp"})
 public class MiniAuthController extends MiniBaseController {
 	
@@ -40,7 +47,7 @@ public class MiniAuthController extends MiniBaseController {
 	@Autowired
 	private IUserService userService;
 	
-	@PostMapping("/auth")
+	@PostMapping
     @ApiOperation(value = "店员/店长登陆")
 	@ApiResponses(value = {			 
 			@ApiResponse(code = 307, message = "跳转到修改密码功能"),
@@ -63,6 +70,14 @@ public class MiniAuthController extends MiniBaseController {
 		 return responseEntity;		 
 	}
 	
-	
+	@PutMapping
+	@ApiOperation(value = "修改密码")
+	void changePassword(@Valid @RequestBody ChangePasswdVO changePasswordVO) {
+		Asserts.check(!changePasswordVO.getNewPassword().equals(changePasswordVO.getOldPassword()),"新旧密码不能相同");
+	    Long currentUserId = JwtUser.currentUserId();
+	    User user = userService.getUser(currentUserId);	    
+	    Asserts.check(new BCryptPasswordEncoder().matches(changePasswordVO.getOldPassword(), user.getPassword()),"旧密码错误。");	   
+	    userService.updatePassword(user.getId(),changePasswordVO.getNewPassword());  
+	}
 	
 }

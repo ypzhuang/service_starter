@@ -16,7 +16,12 @@ import com.bdease.spm.service.IOrderItemService;
 import com.bdease.spm.service.IOrderService;
 import com.bdease.spm.service.IShopService;
 import com.bdease.spm.service.IUserService;
+import com.bdease.spm.vo.DailySaleVO;
 import com.bdease.spm.vo.OrderVO;
+import com.bdease.spm.vo.PerformanceVO;
+import com.bdease.spm.vo.SaleRecordVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.math.BigDecimal;
@@ -131,5 +136,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, GuestOrder> imple
 	public LocalDate getLatestOrderDate(Long guestId) {
 		return this.baseMapper.getLatestOrderDate(guestId);		
 	}
+
+	@Override
+	public List<DailySaleVO> getDailySales(Long userId) {
+		return this.baseMapper.getDailySales(userId);
+	}
 	
+	public PerformanceVO getPerformance(List<Long> userIds) {
+		PerformanceVO performance = new PerformanceVO();
+		for (Long userId : userIds) {
+			User user = userService.getUser(userId);
+			performance.addDailySale(userId, user.getName(), getDailySales(userId));
+		}
+		return performance;
+	}
+
+	@Override
+	public IPage<SaleRecordVO> pageSaleRecord(Page<SaleRecordVO> page, Long shopId, Long soldBy) {
+		return this.baseMapper.pageSaleRecord(page, shopId, soldBy);		
+	}
 }
