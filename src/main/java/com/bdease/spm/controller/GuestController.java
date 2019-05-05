@@ -11,6 +11,7 @@ import com.bdease.spm.vo.GuestVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
@@ -22,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/guests")
 @Api(tags={"Guest"})
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class GuestController extends BaseController {
 
     @Autowired

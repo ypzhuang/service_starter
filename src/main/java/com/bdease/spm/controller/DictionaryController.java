@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.apache.http.util.Asserts;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/api/v1/dicts")
 @Api(tags = {"Dict"})
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class DictionaryController extends BaseController {
 	
 	@Autowired

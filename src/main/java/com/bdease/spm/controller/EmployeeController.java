@@ -114,4 +114,34 @@ public class EmployeeController extends BaseController{
    	public void resetPassword(@PathVariable Long id) {   		
    		service.resetPassword(id);   		
    	}    
+
+    @GetMapping("/allManagers")
+    @ApiOperation(value = "查询所有店铺管理员")  
+    public List<User> findAllManagers() {
+    	List<User> users =  authorityService.selectUsersByAuthorityName(AuthorityName.ROLE_MANAGER, false);
+    	return super.json.use(JsonView.with(users)
+		        .onClass(User.class, Match.match().exclude(UserExcludeProperties))
+		        .onClass(Shop.class, Match.match().exclude("*").include(ShopIncludeProperties))
+		       ).returnValue();  
+    }
+    
+    @GetMapping("/allShopAdmins")
+    @ApiOperation(value = "查询所有店长")  
+    public List<User> findAllShopAdmins() {
+    	List<User> users =  authorityService.selectUsersByAuthorityName(AuthorityName.ROLE_SHOP_ADMIN, false);
+    	return super.json.use(JsonView.with(users)
+		        .onClass(User.class, Match.match().exclude(UserExcludeProperties))
+		        .onClass(Shop.class, Match.match().exclude("*").include(ShopIncludeProperties))
+		       ).returnValue();  
+    }
+    
+    @GetMapping("/shopUsers")
+    @ApiOperation(value = "查询尚未有店铺的店员")  
+    public List<User> findShopUsers() {
+    	List<User> users =  authorityService.selectUsersByAuthorityName(AuthorityName.ROLE_SHOP_USER, true);
+    	return super.json.use(JsonView.with(users)
+		        .onClass(User.class, Match.match().exclude(UserExcludeProperties))
+		        .onClass(Shop.class, Match.match().exclude("*").include(ShopIncludeProperties))
+		       ).returnValue();  
+    }
 }

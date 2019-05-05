@@ -1,10 +1,17 @@
 package com.bdease.spm.service.impl;
 
+import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.Authority;
+import com.bdease.spm.entity.User;
+import com.bdease.spm.entity.UserAuthority;
+import com.bdease.spm.entity.UserShop;
 import com.bdease.spm.entity.enums.AuthorityName;
 import com.bdease.spm.mapper.AuthorityMapper;
 import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IAuthorityService;
+import com.bdease.spm.service.IUserAuthorityService;
+import com.bdease.spm.service.IUserService;
+import com.bdease.spm.service.IUserShopService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
@@ -29,6 +36,15 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
 	@Autowired
 	private AuthorityMapper authorityMapper;
+	
+	@Autowired
+	private IUserAuthorityService userAuthorityService;
+	
+	@Autowired
+	private IUserShopService userShopService;
+	
+	@Autowired
+	private IUserService userService;
 	
 	public Authority findAuthorityByName(AuthorityName name) {		
 		return authorityService.getOne((new LambdaQueryWrapper<Authority>().eq(Authority::getName, name)));
@@ -55,6 +71,20 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 		List<Authority> authorities = this.selectByUserId(userId);
 		return authorities.stream().map(authority -> authority.getName()).collect(Collectors.toList());		
 	}
-	
-	
+
+	@Override
+	public List<User> selectUsersByAuthorityName(AuthorityName name, boolean filterInShop) {
+		Authority authority =  this.findAuthorityByName(name);		
+		List<UserAuthority> userAuthorities = userAuthorityService.list(new LambdaQueryWrapperAdapter<UserAuthority>().eq(UserAuthority::getAuthorityId, authority.getId()));
+		List<Long> userIds = userAuthorities.stream().map(ua -> ua.getUserId()).collect(Collectors.toList());				
+		if(filterInShop) {
+			userIds = userIds.stream().filter(userId -> 
+				userShopService.count(new LambdaQueryWrapperAdapter<UserShop>().eq(UserShop::getUserId, userId)) > 0
+			).collect(Collectors.toList());
+		}
+		List<User> users = userIds.stream().map(userId -> {
+			return userService.getUser(userId);
+		}).collect(Collectors.toList());
+		return users;
+	}	
 }

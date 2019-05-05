@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bdease.spm.entity.enums.AuthorityName;
 import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IAuthorityService;
-import com.bdease.spm.service.IUserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,9 +23,6 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = { "Authority" })
 @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class AuthorityController extends BaseController {
-	
-	@Autowired
-	private IUserService service;
 	
 	@Autowired
 	private IAuthorityService authorityService;

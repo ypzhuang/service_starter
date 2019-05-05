@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiParam;
 
 import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -33,6 +34,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/shopgoods")
 @Api(tags = {"ShopGoods"})
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class ShopGoodsController extends BaseController {
     @Autowired
     private IShopGoodsService shopGoodsService;

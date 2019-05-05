@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiParam;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/photos")
 @Api(tags = {"Photo"})
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class PhotoController extends BaseController {
     @Autowired
     private IPhotoService photoService;
