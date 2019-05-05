@@ -4,6 +4,7 @@ package com.bdease.spm.controller.app.employee;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/emp/v1/orders")
 @Api(tags={"MiniEmp"})
+@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniOrderController extends MiniBaseController{
 	@Autowired
 	private IOrderService orderService;

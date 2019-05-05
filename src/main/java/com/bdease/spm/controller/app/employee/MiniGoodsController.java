@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.apache.http.util.Asserts;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,7 @@ public class MiniGoodsController extends MiniBaseController {
 		
 	@GetMapping
     @ApiOperation(value = "分页查询可销售的商品")
+	@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
     public IPage<ShopGoodsVO> getGoodsByPage(            
             @ApiParam(value = "当前页",required = true,defaultValue = "1") @RequestParam(required = true, defaultValue = "1") Integer current,
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size

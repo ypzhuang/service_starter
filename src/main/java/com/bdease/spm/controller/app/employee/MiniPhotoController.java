@@ -1,6 +1,7 @@
 package com.bdease.spm.controller.app.employee;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/emp/v1/photos")
 @Api(tags={"MiniEmp"})
+@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniPhotoController extends MiniBaseController{
 	
 	@GetMapping

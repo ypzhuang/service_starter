@@ -6,6 +6,7 @@
 
 package com.bdease.spm.controller.app.guest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/guest/v1/photos")
 @Api(tags={"MiniGuest"})
+@PreAuthorize("hasAnyRole('ROLE_GUEST')")
 public class MiniGuestPhotoController extends MiniBaseController {
 	@GetMapping
     @ApiOperation(value = "分页查询护理照片")

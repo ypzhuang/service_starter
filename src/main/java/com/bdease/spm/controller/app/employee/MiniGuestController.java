@@ -3,6 +3,7 @@ package com.bdease.spm.controller.app.employee;
 
 import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ public class MiniGuestController extends MiniBaseController{
 	
 	@GetMapping
     @ApiOperation(value = "分页查询客户")
+	@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
     public IPage<MiniProgramUser> getBrokersByPage(
             @ApiParam(value = "客户姓名、手机号或微信昵称",required = false) @RequestParam(required = false) String user,          
             @ApiParam(value = "N月未拍照", required = false) @RequestParam(required = false) Integer monthsOfNoPictures,

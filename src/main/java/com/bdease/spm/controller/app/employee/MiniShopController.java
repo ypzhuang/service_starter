@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +26,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/app/emp/v1/shops")
 @Api(tags={"MiniEmp"})
+@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniShopController extends MiniBaseController {
 	
 	@Value("${app.defaultPassword}")

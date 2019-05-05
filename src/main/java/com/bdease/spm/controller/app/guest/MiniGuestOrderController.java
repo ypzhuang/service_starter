@@ -7,6 +7,7 @@
 package com.bdease.spm.controller.app.guest;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/guest/v1/orders")
 @Api(tags={"MiniGuest"})
+@PreAuthorize("hasAnyRole('ROLE_GUEST')")
 public class MiniGuestOrderController extends MiniBaseController {
 	@GetMapping
     @ApiOperation(value = "分页查询订单")

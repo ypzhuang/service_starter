@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,6 +73,7 @@ public class MiniAuthController extends MiniBaseController {
 	
 	@PutMapping
 	@ApiOperation(value = "修改密码")
+	@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 	void changePassword(@Valid @RequestBody ChangePasswdVO changePasswordVO) {
 		Asserts.check(!changePasswordVO.getNewPassword().equals(changePasswordVO.getOldPassword()),"新旧密码不能相同");
 	    Long currentUserId = JwtUser.currentUserId();
