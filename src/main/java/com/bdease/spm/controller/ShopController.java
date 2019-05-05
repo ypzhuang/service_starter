@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -37,6 +38,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/shops")
 @Api(tags = {"Shop"})
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class ShopController extends BaseController {
 
     @Data
@@ -58,7 +60,7 @@ public class ShopController extends BaseController {
     @SuppressWarnings("unchecked")
 	@GetMapping
     @ApiOperation(value = "分页查询店铺")
-    public IPage<Shop> getUsersByPage(
+    public IPage<Shop> getShopsByPage(
             @ApiParam(value = "省份代码",required = false) @RequestParam(required = false) String province,
             @ApiParam(value = "城市代码",required = false) @RequestParam(required = false) String city,
             @ApiParam(value = "店铺名称",required = false) @RequestParam(required = false) String name,
@@ -76,6 +78,14 @@ public class ShopController extends BaseController {
         shops.getRecords().forEach(shop -> this.shopService.addUserInformations(shop));
         return shops;
     }
+    
+	@GetMapping("/owns")
+    @ApiOperation(value = "查询管辖的所有店铺,用于查询下拉条件")
+    public List<Shop> getAllOwnShops() {        
+        List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());      
+        List<Shop> shops =  this.shopService.list(new LambdaQueryWrapperAdapter<Shop>().in(Shop::getId, shopIds));      
+        return shops;
+    }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除店铺")
@@ -85,6 +95,7 @@ public class ShopController extends BaseController {
 
     @PostMapping
     @ApiOperation(value = "新增店铺")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN')")
     public Shop createShop(@Valid @RequestBody ShopVO shopVO) {
         if((shopVO.getLatitude() == null || shopVO.getLongitude() == null) && shopVO.getAddress() != null) {
             try {

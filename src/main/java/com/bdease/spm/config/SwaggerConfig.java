@@ -57,7 +57,8 @@ public class SwaggerConfig {
 						new Tag("Auth","认证"),
 						new Tag("Dict","数据字典"),
 						new Tag("MiniEmp","小程序员工端API"),
-						new Tag("MiniGuest","小程序客户端API")
+						new Tag("MiniGuest","小程序客户端API"),
+						new Tag("Authority","职位")
 				);
 	}
 
