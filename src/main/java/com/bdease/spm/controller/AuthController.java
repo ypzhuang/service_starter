@@ -76,7 +76,7 @@ public class AuthController extends BaseController {
     }
 
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_GUEST')")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         String username = jwtTokenUtil.getUsernameFromToken(token);

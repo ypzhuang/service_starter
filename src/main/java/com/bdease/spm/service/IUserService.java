@@ -37,7 +37,8 @@ public interface IUserService extends IService<User> {
 			String nameOrUserName, 
 			Long shopId, 
 			AuthorityName role,
-			Boolean status);
+			Boolean status,
+			List<Long> shopIds);
 	
 	List<Shop> getCurrentUserShops();
 	

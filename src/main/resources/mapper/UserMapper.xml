@@ -18,10 +18,17 @@ WHERE
 SELECT DISTINCT u.* FROM spm.user u LEFT JOIN spm.user_shop us ON u.id = us.user_id 
 LEFT JOIN user_authority ua ON u.id = ua.user_id 
 LEFT JOIN authority a ON ua.authority_id = a.id
-WHERE 1 = 1 			
+WHERE 1 = 1 
+			
 	    <if test="shopId != null">
             AND us.shop_id =  #{shopId}
         </if>
+        <if test="shopIds != null and shopIds.size() > 0">
+        	AND us.shop_id in
+        	<foreach collection="shopIds" item="shopId" index="index" open="(" close=")" separator=",">
+            	#{shopId}
+       		 </foreach>       
+        </if>       
             AND us.del_flag =  '0'
         <if test="nameOrUserName != null and nameOrUserName !=''">
             <bind name="patternUsername" value="'%' + nameOrUserName + '%'" />

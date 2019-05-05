@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bdease.spm.entity.Shop;
 import com.bdease.spm.entity.User;
 import com.bdease.spm.entity.enums.AuthorityName;
+import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IAuthorityService;
 import com.bdease.spm.service.IShopService;
 import com.bdease.spm.service.IUserService;
@@ -16,10 +17,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/v1/employees")
 @Api(tags= {"Employee"} )
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class EmployeeController extends BaseController{
 
     @Autowired
@@ -46,7 +51,7 @@ public class EmployeeController extends BaseController{
     private IAuthorityService authorityService;
 
     @GetMapping
-    @ApiOperation(value = "分页查询员工")
+    @ApiOperation(value = "分页查询员工")    
     public IPage<User> getUsersByPage(
             @ApiParam(value = "姓名或者手机号",required = false) @RequestParam(required = false) String nameOrUserName,
             @ApiParam(value = "店铺ID",required = false) @RequestParam(required = false) Long shopId,
@@ -56,7 +61,8 @@ public class EmployeeController extends BaseController{
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
     ) {
         Page<User> page = new Page<>(current,size);
-        IPage<User> users =  this.service.pageUsers(page, nameOrUserName, shopId, role, status);
+        List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());
+        IPage<User> users =  this.service.pageUsers(page, nameOrUserName, shopId, role, status,shopIds);
         users.getRecords().forEach(user -> {
         	user.setShops(shopService.getShopsByUserId(user.getId()));
         	user.setAuthorityNames(authorityService.selectAuthorityNameByUserId(user.getId()));

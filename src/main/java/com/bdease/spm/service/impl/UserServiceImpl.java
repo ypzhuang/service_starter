@@ -117,8 +117,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
 	@Override
-	public IPage<User> pageUsers(Page<User> page, String nameOrUserName, Long shopId, AuthorityName role, Boolean status) {
-		return this.baseMapper.pageUsers(page, nameOrUserName, shopId, role, status);	
+	public IPage<User> pageUsers(Page<User> page, String nameOrUserName, Long shopId, AuthorityName role, Boolean status, List<Long> shopIds) {
+		return this.baseMapper.pageUsers(page, nameOrUserName, shopId, role, status, shopIds);	
 	}
 
 	@Override

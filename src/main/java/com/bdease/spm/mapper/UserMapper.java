@@ -25,7 +25,8 @@ public interface UserMapper extends BaseMapper<User> {
 			@Param("nameOrUserName") String nameOrUserName, 
 			@Param("shopId") Long shopId, 
 			@Param("role") AuthorityName role,
-			@Param("status") Boolean status);
+			@Param("status") Boolean status,
+			@Param("shopIds") List<Long> shopIds);
 
 	List<User> findUsers(@Param("shopId") Long shopId,@Param("role") AuthorityName role);
 }
