@@ -18,6 +18,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
@@ -25,18 +26,19 @@ import com.bdease.spm.config.AliyunConfiguration;
 import com.bdease.spm.service.impl.aliyun.SMSService;
 
 @Component
+@Lazy(false)
 public class SpringContextBridge implements SpringContextBridgedService, ApplicationContextAware {
 	
-	protected  final Logger log = LoggerFactory.getLogger(getClass());
+	protected  static final Logger log = LoggerFactory.getLogger(SpringContextBridge.class);
 
 	private  static ApplicationContext applicationContext;
 	
-	public static SpringContextBridgedService services() {
+	public static SpringContextBridgedService services() {		
         return applicationContext.getBean(SpringContextBridgedService.class);
     }
 	
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {		
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		SpringContextBridge.applicationContext = applicationContext;
 	}
 	

@@ -8,15 +8,16 @@ package com.bdease.spm.queue;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Component;
 
-import com.bdease.spm.context.SpringContextBridge;
 
 @Component
 public class RedisMessagePublisher implements MessagePublisher {
 	
+	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 	
 	private ChannelTopic topic;
@@ -25,9 +26,8 @@ public class RedisMessagePublisher implements MessagePublisher {
 		this(MessagePublisher.QUEUE_VALIDATION_CODE);
 	}
 
-	@SuppressWarnings("unchecked")
 	public RedisMessagePublisher(String topic) {
-		this.redisTemplate =   SpringContextBridge.services().getService("redisTemplate", RedisTemplate.class);
+		// this.redisTemplate =   SpringContextBridge.services().getService("redisTemplate", RedisTemplate.class);
 		this.setTopic(MessagePublisher.QUEUE_VALIDATION_CODE);				
 	}
 	
