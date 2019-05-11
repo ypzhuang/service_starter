@@ -1,6 +1,6 @@
 package com.bdease.spm.service;
-
 import com.bdease.spm.entity.MiniProgramUser;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bdease.spm.vo.GuestVO;
 
@@ -18,4 +18,7 @@ public interface IMiniProgramUserService extends IService<MiniProgramUser> {
 	MiniProgramUser getMiniProgramUserByOpenId(String openId);
 
     MiniProgramUser updateMiniProgramUser(Long id, GuestVO guestVO);
+
+	IPage<MiniProgramUser> getGuestsByPage(String user, Long shopId, Integer monthsOfNoPictures, Integer monthsOfNoOrders, Integer current, Integer size);
+    
 }

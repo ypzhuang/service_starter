@@ -7,15 +7,21 @@ import com.bdease.spm.entity.User;
 import com.bdease.spm.entity.UserMiniProgramUser;
 import com.bdease.spm.entity.enums.AuthorityName;
 import com.bdease.spm.mapper.MiniProgramUserMapper;
+import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IAuthorityService;
 import com.bdease.spm.service.IMiniProgramUserService;
+import com.bdease.spm.service.IShopService;
 import com.bdease.spm.service.IUserMiniProgramUserService;
 import com.bdease.spm.service.IUserService;
+import com.bdease.spm.utils.DateHelper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.bdease.spm.vo.GuestVO;
 import org.apache.http.util.Asserts;
@@ -45,6 +51,9 @@ public class MiniProgramUserServiceImpl extends ServiceImpl<MiniProgramUserMappe
 	
 	@Autowired
 	private IAuthorityService authorityService;	
+	
+	@Autowired
+	private IShopService shopService;	
 	
 	@Value("${app.defaultPassword}")
 	private String defaultPasswd;
@@ -81,7 +90,6 @@ public class MiniProgramUserServiceImpl extends ServiceImpl<MiniProgramUserMappe
 		return user;
 	}
 
-
 	@Override
 	public MiniProgramUser getMiniProgramUserByOpenId(String openId) {		
 		return this.getOne(new LambdaQueryWrapperAdapter<MiniProgramUser>().eq(MiniProgramUser::getOpenId, openId));
@@ -97,6 +105,21 @@ public class MiniProgramUserServiceImpl extends ServiceImpl<MiniProgramUserMappe
 		miniProgramUser.setId(id);
 		this.updateById(miniProgramUser);
 		return this.getById(id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public IPage<MiniProgramUser> getGuestsByPage(String user, Long shopId, Integer monthsOfNoPictures, Integer monthsOfNoOrders, Integer current, Integer size) {
+		Page<MiniProgramUser> page = new Page<>(current,size);
+	    List<Long> shopIds = shopService.getOwnShopIds(JwtUser.currentUserId());
+	
+	    return page(page,new LambdaQueryWrapperAdapter<MiniProgramUser>()
+	            .eq(MiniProgramUser::getShopId,shopId)
+	            .nestedLike(user, MiniProgramUser::getNickName,MiniProgramUser::getPhone,MiniProgramUser::getName)
+	            .isNullOrLe(MiniProgramUser::getLastPictureDate, DateHelper.getDate(monthsOfNoPictures))
+	            .isNullOrLe(MiniProgramUser::getLastOrderDate, DateHelper.getDate(monthsOfNoOrders))
+	            .in(MiniProgramUser::getShopId,shopIds)
+	    );
 	}
 
 }
