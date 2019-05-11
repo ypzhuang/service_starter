@@ -166,7 +166,7 @@ public class BaseController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AccessDeniedException.class)
     public ErrorResponse exception(AccessDeniedException e) {
-    	log.error("Access Denied Exception:{}",e.getMessage());  
+    	log.error("Access Denied Exception:{}",e);  
         return new ErrorResponse("无权限访问!");
     }   
 }
