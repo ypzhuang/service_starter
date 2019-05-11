@@ -1,8 +1,7 @@
 package com.bdease.spm.controller.app.employee;
 
-
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.http.util.Asserts;
@@ -13,16 +12,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bdease.spm.controller.app.MiniBaseController;
 import com.bdease.spm.entity.User;
 import com.bdease.spm.security.JwtAuthenticationRequest;
+import com.bdease.spm.security.JwtTokenUtil;
 import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.security.service.JwtAuthenticationResponse;
 import com.bdease.spm.service.IShopService;
@@ -46,7 +48,16 @@ public class MiniAuthController extends MiniBaseController {
 	private IShopService shopService;
 	
 	@Autowired
-	private IUserService userService;
+	private IUserService userService;	
+	 
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 	
 	@PostMapping
     @ApiOperation(value = "店员/店长登陆")
@@ -82,4 +93,13 @@ public class MiniAuthController extends MiniBaseController {
 	    userService.updatePassword(user.getId(),changePasswordVO.getNewPassword());  
 	}
 	
+	@RequestMapping(value = "user", method = RequestMethod.GET)
+	@ApiOperation(value = "我是谁")
+	@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+	public JwtUser getAuthenticatedUser(HttpServletRequest request) {
+		String token = request.getHeader(tokenHeader);
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+		return user;
+	}	
 }

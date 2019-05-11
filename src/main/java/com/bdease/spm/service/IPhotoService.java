@@ -1,6 +1,7 @@
 package com.bdease.spm.service;
 
 import com.bdease.spm.entity.Photo;
+import com.bdease.spm.vo.PhotoVO;
 
 import java.time.LocalDate;
 
@@ -22,4 +23,6 @@ public interface IPhotoService extends IService<Photo> {
     LocalDate getLatestTakedPhotoDate(Long guestId);
     
     IPage<Photo> getPhotosByPage(Long miniProgramUserId, Integer current, Integer size);
+    
+    Photo savePhoto(PhotoVO photoVO);
 }

@@ -43,7 +43,7 @@ mybatis-plus:
 spring:
     profiles: dev
     datasource:
-        initialization-mode: always
+        initialization-mode: never
         url: jdbc:mysql://127.0.0.1:3306/spm?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
         username: root
         password: 12345678

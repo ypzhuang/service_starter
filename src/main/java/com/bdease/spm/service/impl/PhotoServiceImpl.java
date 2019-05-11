@@ -2,10 +2,13 @@ package com.bdease.spm.service.impl;
 
 import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.Photo;
+import com.bdease.spm.entity.Shop;
 import com.bdease.spm.mapper.PhotoMapper;
 import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IPhotoService;
 import com.bdease.spm.service.IShopService;
+import com.bdease.spm.service.IUserService;
+import com.bdease.spm.vo.PhotoVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,6 +32,9 @@ import org.springframework.stereotype.Service;
 public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements IPhotoService {
     @Autowired
     private IShopService shopService;
+    
+    @Autowired
+    private IUserService userService;
     
     @Override
     public void deletePhoto(Long id) {
@@ -55,5 +61,20 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
                 .eq(Photo::getMiniUserId,miniProgramUserId)
                 .in(Photo::getShopId, shopIds)
         );
+	}
+
+	@Override
+	public Photo savePhoto(PhotoVO photoVO) {
+		Photo photo = new Photo();
+		photo.setMiniUserId(photoVO.getMiniUserId());
+		photo.setPhotoUrl(photoVO.getPhotoUrl());
+		
+		Shop shop = userService.getActiveShopOfCurrentUser();
+		photo.setShopId(shop.getId());
+		photo.setTakedBy(JwtUser.currentUserId());
+		photo.setTakedDate(LocalDate.now());
+		
+		this.save(photo);
+		return getPhoto(photo.getId());
 	}
 }
