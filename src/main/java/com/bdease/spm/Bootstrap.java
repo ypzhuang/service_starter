@@ -72,60 +72,77 @@ public class Bootstrap {
 
 	private void initShops() {
 		log.info("bootstrap shops");
-		Shop shop = null;
-		shop = new Shop();
-		shop.setAddress("金桥路1230号");
-		shop.setStatus(ShopStatus.OPEN);
-		shop.setName("金桥国际店");
-		shopService.save(shop);
+		Shop shop =  shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店"));
+		if (shop == null) {
+			shop = new Shop();
+			shop.setAddress("金桥路1230号");
+			shop.setStatus(ShopStatus.OPEN);
+			shop.setName("金桥国际店");
+			shopService.save(shop);
+		}
 
-		shop = new Shop();
-		shop.setAddress("金桥路1233号");
-		shop.setStatus(ShopStatus.OPEN);
-		shop.setName("金桥国际店2店");
-		shopService.save(shop);
+		shop =  shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店2店"));
+		if (shop == null) {
+			shop = new Shop();
+			shop.setAddress("金桥路1233号");
+			shop.setStatus(ShopStatus.OPEN);
+			shop.setName("金桥国际店2店");
+			shopService.save(shop);
+		}		
 	}
 
 	private void initGoods() {
 		log.info("bootstrap goods");
-		Goods goods = null;
+		Goods goods = goodsService.getOne(new LambdaQueryWrapperAdapter<Goods>().eq(Goods::getName, "霸王洗发液"));
+		if (goods == null) {
+			goods = new Goods();
+			goods.setName("霸王洗发液");
+			goods.setIdentifier("A1001001");
+			goods.setDescription("要不脱发，就用霸王");
+			goods.setImgUrl("http://47.96.166.81:8888/group1/M00/00/00/rBAsLlxn0hOAH9tNAAFpvhEsD8I01.jpeg");
+			goods.setPrice(new BigDecimal(50));
+			goods.setStatus(GoodsStatus.OFFLINE);
+			goods.setSpec("1000ml");
+			goodsService.save(goods);
+		}
 
-		goods = new Goods();
-		goods.setName("霸王洗发液");
-		goods.setIdentifier("A1001001");
-		goods.setDescription("要不脱发，就用霸王");
-		goods.setImgUrl("http://47.96.166.81:8888/group1/M00/00/00/rBAsLlxn0hOAH9tNAAFpvhEsD8I01.jpeg");
-		goods.setPrice(new BigDecimal(50));
-		goods.setStatus(GoodsStatus.OFFLINE);
-		goods.setSpec("1000ml");
-		goodsService.save(goods);
+		goods = goodsService.getOne(new LambdaQueryWrapperAdapter<Goods>().eq(Goods::getName, "海飞丝"));
+		if (goods == null) {
+			goods = new Goods();
+			goods.setName("海飞丝");
+			goods.setIdentifier("A1001002");
+			goods.setDescription("要头发无头屑，就用海飞丝");
+			goods.setImgUrl("http://47.96.166.81:8888/group1/M00/00/00/rBAsLlxn0hOAH9tNAAFpvhEsD8I01.jpeg");
+			goods.setPrice(new BigDecimal(100));
+			goods.setStatus(GoodsStatus.FOR_SALE);
+			goods.setSpec("800ml");
+			goodsService.save(goods);
+		}		
 
-		goods = new Goods();
-		goods.setName("海飞丝");
-		goods.setIdentifier("A1001002");
-		goods.setDescription("要头发无头屑，就用海飞丝");
-		goods.setImgUrl("http://47.96.166.81:8888/group1/M00/00/00/rBAsLlxn0hOAH9tNAAFpvhEsD8I01.jpeg");
-		goods.setPrice(new BigDecimal(100));
-		goods.setStatus(GoodsStatus.FOR_SALE);
-		goods.setSpec("800ml");
-		goodsService.save(goods);
+		goods = goodsService.getOne(new LambdaQueryWrapperAdapter<Goods>().eq(Goods::getName, "飘柔"));		
+		if (goods == null) {
+			goods = new Goods();
+			goods.setName("飘柔");
+			goods.setIdentifier("A1001003");
+			goods.setDescription("要头发飘逸，就用海飞丝");
+			goods.setImgUrl("http://47.96.166.81:8888/group1/M00/00/00/rBAsLlxn0hOAH9tNAAFpvhEsD8I01.jpeg");
+			goods.setPrice(new BigDecimal(150));
+			goods.setStatus(GoodsStatus.FOR_SALE);
+			goods.setSpec("500ml");
+			goodsService.save(goods);
+		}
 
-		goods = new Goods();
-		goods.setName("飘柔");
-		goods.setIdentifier("A1001003");
-		goods.setDescription("要头发飘逸，就用海飞丝");
-		goods.setImgUrl("http://47.96.166.81:8888/group1/M00/00/00/rBAsLlxn0hOAH9tNAAFpvhEsD8I01.jpeg");
-		goods.setPrice(new BigDecimal(150));
-		goods.setStatus(GoodsStatus.FOR_SALE);
-		goods.setSpec("500ml");
-		goodsService.save(goods);
-
-		ShopGoods shopGoods = new ShopGoods();
 		Shop shop = shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店"));
-		shopGoods.setShopId(shop.getId());
-		shopGoods.setGoodsId(goods.getId());
-		shopGoods.setPrice(new BigDecimal(149));
-		shopGoodsService.save(shopGoods);
+		ShopGoods shopGoods = shopGoodsService.getOne(new LambdaQueryWrapperAdapter<ShopGoods>()
+				.eq(ShopGoods::getId, shop.getId())
+				.eq(ShopGoods::getGoodsId, goods.getId()));
+		if (shopGoods == null) {
+			shopGoods = new ShopGoods();		
+			shopGoods.setShopId(shop.getId());
+			shopGoods.setGoodsId(goods.getId());
+			shopGoods.setPrice(new BigDecimal(149));
+			shopGoodsService.save(shopGoods);
+		}		
 	}
 	
 	private void initOrders() {
