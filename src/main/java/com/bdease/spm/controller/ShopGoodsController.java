@@ -51,9 +51,8 @@ public class ShopGoodsController extends BaseController {
             @ApiParam(value = "当前页",required = true,defaultValue = "1") @RequestParam(required = true, defaultValue = "1") Integer current,
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
     ) {
-        List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());
-        Page<ShopGoodsVO> page = new Page<>(current,size);
-        return this.shopGoodsService.pageShopGoods(page,shopId,goods,shopIds);
+        List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());        
+        return this.shopGoodsService.pageShopGoods(shopId,goods,shopIds,current,size);
     }
 
     @GetMapping("/availableGoods")

@@ -24,7 +24,7 @@ public interface IShopGoodsService extends IService<ShopGoods> {
 
     ShopGoods updatePrice(Long id, BigDecimal price);
 
-    IPage<ShopGoodsVO> pageShopGoods(Page<ShopGoodsVO> page, Long shopId, String goodsName, List<Long> shopIds);
+    IPage<ShopGoodsVO> pageShopGoods(Long shopId, String goodsName, List<Long> shopIds, Integer current, Integer size);
 
     IPage<Goods> pageShopAvailableGoods(Page<Goods> page, Long shopId, String goodsName);
 

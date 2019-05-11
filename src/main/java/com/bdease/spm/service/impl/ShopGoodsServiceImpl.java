@@ -54,7 +54,8 @@ public class ShopGoodsServiceImpl extends ServiceImpl<ShopGoodsMapper, ShopGoods
     }
 
     @Override
-    public IPage<ShopGoodsVO> pageShopGoods(Page<ShopGoodsVO> page, Long shopId, String goodsName, List<Long> shopIds) {
+    public IPage<ShopGoodsVO> pageShopGoods(Long shopId, String goodsName, List<Long> shopIds, Integer current, Integer size) {
+    	Page<ShopGoodsVO> page = new Page<>(current,size);
         return this.baseMapper.pageShopGoods(page,shopId,goodsName,shopIds);
     }
 

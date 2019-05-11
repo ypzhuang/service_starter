@@ -20,6 +20,9 @@ import com.bdease.spm.entity.Goods;
 import com.bdease.spm.entity.Shop;
 import com.bdease.spm.entity.enums.GoodsStatus;
 import com.bdease.spm.security.JwtUser;
+import com.bdease.spm.service.IGoodsService;
+import com.bdease.spm.service.IShopGoodsService;
+import com.bdease.spm.service.IShopService;
 import com.bdease.spm.service.IUserService;
 import com.bdease.spm.vo.ShopGoodsVO;
 
@@ -31,13 +34,22 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/emp/v1/goods")
 @Api(tags={"MiniEmp"})
+@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniGoodsController extends MiniBaseController {	
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+    private IGoodsService goodsService;
+	
+	@Autowired
+    private IShopService shopService;
+	
+	@Autowired
+    private IShopGoodsService shopGoodsService;
 		
 	@GetMapping
-    @ApiOperation(value = "分页查询可销售的商品")
-	// @PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+    @ApiOperation(value = "分页查询可销售的商品")	
     public IPage<ShopGoodsVO> getGoodsByPage(            
             @ApiParam(value = "当前页",required = true,defaultValue = "1") @RequestParam(required = true, defaultValue = "1") Integer current,
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
@@ -46,11 +58,14 @@ public class MiniGoodsController extends MiniBaseController {
 		Asserts.check(shop != null, "当前用户:%d未设置当前店铺？",JwtUser.currentUserId());
 		String goodsCondition = null;
 		IPage<ShopGoodsVO>  pages = null;
-		pages = super.shopGoodsController.getShopGoodsByPage(goodsCondition, shop.getId(), current, size);
+			
+		List<Long> shopIds = this.shopService.getOwnShopIds(JwtUser.currentUserId());        
+		pages =  this.shopGoodsService.pageShopGoods(shop.getId(),goodsCondition,shopIds,current,size);
+	        
 		if(pages.getTotal() != 0) {
 			return pages;
 		} {
-			IPage<Goods> goodsPages = super.goodsController.getGoodsByPage(goodsCondition, GoodsStatus.FOR_SALE, current, size);
+			IPage<Goods> goodsPages = this.goodsService.getGoodsByPage(goodsCondition, GoodsStatus.FOR_SALE, current, size);
 			pages = new Page<ShopGoodsVO>();
 			BeanUtils.copyProperties(goodsPages, pages);
 			
@@ -63,7 +78,5 @@ public class MiniGoodsController extends MiniBaseController {
 			pages.setRecords(shopGoodsVOList);
 			return pages;
 		}		
-    }
-	
-	
+    }	
 }
