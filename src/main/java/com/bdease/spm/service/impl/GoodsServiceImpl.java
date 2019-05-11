@@ -2,8 +2,11 @@ package com.bdease.spm.service.impl;
 
 import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.Goods;
+import com.bdease.spm.entity.enums.GoodsStatus;
 import com.bdease.spm.mapper.GoodsMapper;
 import com.bdease.spm.service.IGoodsService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bdease.spm.vo.GoodsVO;
 import org.apache.http.util.Asserts;
@@ -53,4 +56,13 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
                 .eq(Goods::getName, name));
         Asserts.check(goods == null || forUpdateId !=null && goods.getId().equals(forUpdateId) ,"重复的商品名称:%s", name);
     }
+    
+    @SuppressWarnings("unchecked")
+	public IPage<Goods> getGoodsByPage(String goods, GoodsStatus status, Integer current, Integer size) {
+		Page<Goods> page = new Page<>(current,size);
+        return this.page(page, new LambdaQueryWrapperAdapter<Goods>()
+                .eq(Goods::getStatus, status)
+                .nestedLike(goods, Goods::getName,Goods::getIdentifier)
+        );
+	}
 }

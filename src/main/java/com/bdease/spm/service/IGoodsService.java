@@ -1,6 +1,8 @@
 package com.bdease.spm.service;
 
 import com.bdease.spm.entity.Goods;
+import com.bdease.spm.entity.enums.GoodsStatus;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bdease.spm.vo.GoodsVO;
 
@@ -19,5 +21,7 @@ public interface IGoodsService extends IService<Goods> {
     Goods getGoods(Long id);
 
     Goods saveOrUpdateGoods(Long id, GoodsVO goodsVO);
+    
+    IPage<Goods> getGoodsByPage(String goods, GoodsStatus status, Integer current, Integer size);
 
 }

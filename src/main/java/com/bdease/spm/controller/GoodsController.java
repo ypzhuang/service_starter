@@ -1,8 +1,6 @@
 package com.bdease.spm.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.Goods;
 import com.bdease.spm.entity.enums.GoodsStatus;
 import com.bdease.spm.service.IGoodsService;
@@ -31,13 +29,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/v1/goods")
 @Api(tags = {"Goods"})
-//@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
-@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER','ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+//@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER','ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class GoodsController extends BaseController {
     @Autowired
     private IGoodsService goodsService;
-
-    @SuppressWarnings("unchecked")
+   
 	@GetMapping
     @ApiOperation(value = "分页查询商品")
     public IPage<Goods> getGoodsByPage(
@@ -46,11 +43,7 @@ public class GoodsController extends BaseController {
             @ApiParam(value = "当前页",required = true,defaultValue = "1") @RequestParam(required = true, defaultValue = "1") Integer current,
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
     ) {
-        Page<Goods> page = new Page<>(current,size);
-        return this.goodsService.page(page, new LambdaQueryWrapperAdapter<Goods>()
-                .eq(Goods::getStatus, status)
-                .nestedLike(goods, Goods::getName,Goods::getIdentifier)
-        );
+        return this.goodsService.getGoodsByPage(goods, status, current, size);
     }
 
     @DeleteMapping("/{id}")
