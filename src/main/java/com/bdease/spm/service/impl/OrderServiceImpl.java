@@ -152,7 +152,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, GuestOrder> imple
 	}
 
 	@Override
-	public IPage<SaleRecordVO> pageSaleRecord(Page<SaleRecordVO> page, Long shopId, Long soldBy) {
+	public IPage<SaleRecordVO> pageSaleRecord(Long shopId, Long soldBy,Integer current, Integer size) {
+		Page<SaleRecordVO> page = new Page<>(current,size);
 		return this.baseMapper.pageSaleRecord(page, shopId, soldBy);		
+	}
+	
+	@Override
+	public IPage<GuestOrder> getOrdersByPage(Long miniProgramUserId, Integer current, Integer size) {
+		Page<GuestOrder> page = new Page<>(current,size);	
+	    return this.page(page,new LambdaQueryWrapperAdapter<GuestOrder>()
+	            .eq(GuestOrder::getMiniUserId,miniProgramUserId)
+	    );
 	}
 }

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -33,5 +32,7 @@ public interface IOrderService extends IService<GuestOrder> {
 	
 	PerformanceVO getPerformance(List<Long> userIds);
 	
-	IPage<SaleRecordVO> pageSaleRecord(Page<SaleRecordVO> page,Long shopId, Long soldBy);
+	IPage<SaleRecordVO> pageSaleRecord(Long shopId, Long soldBy, Integer current, Integer size);
+
+	IPage<GuestOrder> getOrdersByPage(Long miniProgramUserId, Integer current, Integer size);
 }

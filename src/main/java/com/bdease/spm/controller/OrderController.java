@@ -2,13 +2,10 @@ package com.bdease.spm.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.GuestOrder;
 import com.bdease.spm.entity.OrderItem;
 import com.bdease.spm.service.IOrderItemService;
 import com.bdease.spm.service.IOrderService;
-import com.bdease.spm.vo.OrderVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,8 +13,6 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 /**
@@ -36,7 +31,7 @@ import java.util.List;
 public class OrderController extends BaseController {
     @Autowired
     private IOrderService orderService;
-
+    
     @Autowired
     private IOrderItemService orderItemService;
 
@@ -47,21 +42,13 @@ public class OrderController extends BaseController {
             @ApiParam(value = "当前页",required = true,defaultValue = "1") @RequestParam(required = true, defaultValue = "1") Integer current,
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
     ) {
-        Page<GuestOrder> page = new Page<>(current,size);
-
-        return this.orderService.page(page,new LambdaQueryWrapperAdapter<GuestOrder>()
-                .eq(GuestOrder::getMiniUserId,miniProgramUserId)
-        );
-    }
-
-    @GetMapping("/{id}/items")
-    @ApiOperation(value = "查询订单项目明细")
-    public List<OrderItem> getOderItemsByOrderId(@PathVariable Long id
-    ) {
-        return this.orderItemService.list(new LambdaQueryWrapperAdapter<OrderItem>().eq(OrderItem::getOrderId,id));
+        return this.orderService.getOrdersByPage(miniProgramUserId, current, size);
     }
     
-    public void createOrder(OrderVO orderVO) {
-    	 this.orderService.createOrder(orderVO);
-    }
+	@GetMapping("/{id}/items")
+	@ApiOperation(value = "查询订单项目明细")
+	public java.util.List<OrderItem> getOderItemsByOrderId(Long id
+	) {
+	    return this.orderItemService.getOderItemsByOrderId(id);
+	}
 }

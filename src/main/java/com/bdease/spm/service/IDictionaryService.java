@@ -17,7 +17,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-01-03
  */
 public interface IDictionaryService extends IService<Dictionary> {
-	public List<DictTypeVO> selectGroupByTypeCode();
+	List<DictTypeVO> selectGroupByTypeCode();
 	
-	public List<DictCodeVO> selectByTypeCode(String typeCode);
+	List<DictCodeVO> selectByTypeCode(String typeCode);
+	
+	List<DictTypeVO> getAllDicts();
 }

@@ -50,13 +50,8 @@ public class DictionaryController extends BaseController {
     @GetMapping
     @ApiOperation(value = "查询所有数据字典")
     public List<DictTypeVO> getAllDictionaries() {
-    	List<DictTypeVO> list = service.selectGroupByTypeCode();
-    	for(DictTypeVO dictType: list) {
-    		List<DictCodeVO> codes = service.selectByTypeCode(dictType.getTypeCode());
-    		dictType.setCodes(codes);
-    	}
-    	return list;     
-    }
+    	return this.service.getAllDicts();     
+    }	
     
     @GetMapping("/pages")
     @ApiOperation(value = "分页查询所有数据字典")
@@ -65,7 +60,7 @@ public class DictionaryController extends BaseController {
 		   @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
 		   ) {
     	Page<Dictionary> page = new Page<Dictionary>(current,size);  
-    	return service.page(page);
+    	return this.service.page(page);
     }
 
     @PostMapping(value = "/{typeCode}")
@@ -77,7 +72,7 @@ public class DictionaryController extends BaseController {
     	BeanUtils.copyProperties(dictType.get(), dict);
     	BeanUtils.copyProperties(dictCodeVO, dict);
     	dict.setEnable(Enable.YES);
-    	service.save(dict);
+    	this.service.save(dict);
     	return dict;
     }
     
