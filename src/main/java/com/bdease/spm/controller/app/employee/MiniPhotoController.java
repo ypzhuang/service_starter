@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/emp/v1/photos")
 @Api(tags={"MiniEmp"})
-@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+// @PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniPhotoController extends MiniBaseController{
 	
 	@GetMapping

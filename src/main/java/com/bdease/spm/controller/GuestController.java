@@ -23,7 +23,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/guests")
 @Api(tags={"Guest"})
-@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+//@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER','ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class GuestController extends BaseController {
 
     @Autowired

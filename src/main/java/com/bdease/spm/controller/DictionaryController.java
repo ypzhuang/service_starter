@@ -40,7 +40,8 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/api/v1/dicts")
 @Api(tags = {"Dict"})
-@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+//@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER','ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class DictionaryController extends BaseController {
 	
 	@Autowired

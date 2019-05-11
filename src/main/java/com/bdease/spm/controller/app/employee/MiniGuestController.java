@@ -30,7 +30,7 @@ public class MiniGuestController extends MiniBaseController{
 	
 	@GetMapping
     @ApiOperation(value = "分页查询客户")
-	@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+	// ("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
     public IPage<MiniProgramUser> getBrokersByPage(
             @ApiParam(value = "客户姓名、手机号或微信昵称",required = false) @RequestParam(required = false) String user,          
             @ApiParam(value = "N月未拍照", required = false) @RequestParam(required = false) Integer monthsOfNoPictures,

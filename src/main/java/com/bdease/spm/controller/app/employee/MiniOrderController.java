@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/app/emp/v1/orders")
 @Api(tags={"MiniEmp"})
-@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+// @PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniOrderController extends MiniBaseController{
 	@Autowired
 	private IOrderService orderService;

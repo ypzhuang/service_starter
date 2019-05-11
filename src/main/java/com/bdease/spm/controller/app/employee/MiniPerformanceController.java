@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/app/emp/v1/performances")
 @Api(tags={"MiniEmp"})
-@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+// @PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class MiniPerformanceController extends MiniBaseController{
 	@Autowired
 	private IUserService userService;

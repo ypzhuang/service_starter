@@ -34,7 +34,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/shopgoods")
 @Api(tags = {"ShopGoods"})
-@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+//@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER','ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
 public class ShopGoodsController extends BaseController {
     @Autowired
     private IShopGoodsService shopGoodsService;

@@ -37,7 +37,7 @@ public class MiniGoodsController extends MiniBaseController {
 		
 	@GetMapping
     @ApiOperation(value = "分页查询可销售的商品")
-	@PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
+	// @PreAuthorize("hasAnyRole('ROLE_SHOP_USER','ROLE_SHOP_ADMIN')")
     public IPage<ShopGoodsVO> getGoodsByPage(            
             @ApiParam(value = "当前页",required = true,defaultValue = "1") @RequestParam(required = true, defaultValue = "1") Integer current,
             @ApiParam(value = "每页数量",required = true,defaultValue = "10") @RequestParam(required = true, defaultValue = "10") Integer size
