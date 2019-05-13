@@ -66,7 +66,7 @@ public class MiniProgramUserServiceImpl extends ServiceImpl<MiniProgramUserMappe
 		if(persistUser == null) { //新增
 			this.save(user);			
 			User mockUser = new User();
-			mockUser.setName(openId);
+			mockUser.setName(user.getName());
 			mockUser.setUsername(openId);
 			mockUser.setPassword(new BCryptPasswordEncoder().encode(openId + defaultPasswd)); 
 			
