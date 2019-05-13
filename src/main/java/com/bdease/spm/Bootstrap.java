@@ -153,9 +153,19 @@ public class Bootstrap {
 			orderVO.setMiniUserId(miniProgramUser.getId());
 			orderVO.setPayAmount(new BigDecimal(580));
 			Shop shop = shopService.getOne(new LambdaQueryWrapperAdapter<Shop>().eq(Shop::getName, "金桥国际店2店"));
+			shopService.addUserInformations(shop);			
 			orderVO.setShopId(shop.getId());
-			User user = userService.findUserByUsername("shopAdmin");
-			orderVO.setSoldBy(user.getId());
+			log.debug("shop:{}",shop);
+			
+			Long userId = null;
+			if(!shop.getShopUsers().isEmpty()) {
+				userId = shop.getShopUsers().get(0);
+			} else if(shop.getShopAdmin() != null){
+				userId = shop.getShopAdmin();
+			}	
+			if(userId == null) break;
+			
+			orderVO.setSoldBy(userId);
 
 			List<OrderItemVO> orderItems = new ArrayList<>();
 			OrderItemVO item = null;

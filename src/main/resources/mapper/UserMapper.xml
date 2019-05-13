@@ -30,6 +30,7 @@ WHERE 1 = 1
        		 </foreach>       
         </if>       
             AND us.del_flag =  '0'
+            AND u.del_flag = '0'
         <if test="nameOrUserName != null and nameOrUserName !=''">
             <bind name="patternUsername" value="'%' + nameOrUserName + '%'" />
             AND (u.username LIKE #{patternUsername} OR u.name LIKE #{patternUsername})           

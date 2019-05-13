@@ -35,7 +35,8 @@ public class AuthorityController extends BaseController {
 			if (authorityName.equals(AuthorityName.ROLE_MANAGER) || authorityName.equals(AuthorityName.ROLE_SHOP_ADMIN)
 					|| authorityName.equals(AuthorityName.ROLE_SHOP_USER)) {
 				Map<String, String> e = new HashMap<>();
-				e.put(authorityName.getValue(), authorityName.getDesc());
+				e.put("code", authorityName.getValue());
+				e.put("name", authorityName.getDesc());
 				results.add(e);
 			}
 		}
@@ -51,7 +52,8 @@ public class AuthorityController extends BaseController {
 			if (authorityName.equals(AuthorityName.ROLE_MANAGER) && authorities.contains(AuthorityName.ROLE_SUPER_ADMIN) || authorityName.equals(AuthorityName.ROLE_SHOP_ADMIN)
 					|| authorityName.equals(AuthorityName.ROLE_SHOP_USER)) {
 				Map<String, String> e = new HashMap<>();
-				e.put(authorityName.getValue(), authorityName.getDesc());
+				e.put("code", authorityName.getValue());
+				e.put("name", authorityName.getDesc());
 				results.add(e);
 			}
 		}
