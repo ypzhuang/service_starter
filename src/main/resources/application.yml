@@ -143,17 +143,7 @@ app:
 role:
   users:
     - 
-      #店员
-      role: ROLE_SHOP_USER
-      user: shopUser
-      password: 12345678
-    -
-      #店长
-      role: ROLE_SHOP_ADMIN
-      user: shopAdmin
-      password: 12345678
-    - 
-      #管理员(合伙人)
+      #管理员
       role: ROLE_MANAGER
       user: manager
       password: 12345678
@@ -240,17 +230,7 @@ app:
 role:
   users:
     - 
-      #店员
-      role: ROLE_SHOP_USER
-      user: shopUser
-      password: 12345678@prod
-    -
-      #店长
-      role: ROLE_SHOP_ADMIN
-      user: shopAdmin
-      password: 12345678@prod
-    - 
-      #管理员(合伙人)
+      #管理员
       role: ROLE_MANAGER
       user: manager
       password: 12345678@prod
@@ -331,12 +311,7 @@ app:
 role:
   users:
     - 
-      #店员
-      role: ROLE_SHOP_USER
-      user: shopUser
-      password: 12345678@test1
-    - 
-      #管理员(合伙人)
+      #管理员
       role: ROLE_MANAGER
       user: manager
       password: 12345678@test1
@@ -344,11 +319,6 @@ role:
       #店长
       role: ROLE_SHOP_ADMIN
       user: shopAdmin
-      password: 12345678@test1
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
       password: 12345678@test1
     -
       #超级管理员

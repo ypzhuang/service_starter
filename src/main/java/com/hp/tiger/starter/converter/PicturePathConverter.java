@@ -73,10 +73,7 @@ public class PicturePathConverter {
 		if(picturePath == null) return null;
 		picturePath = FileHelper.removeFileServer(picturePath);		
 		String fileServer;
-		if(JwtUser.currentUserRoles().contains(AuthorityName.ROLE_GUEST.name()) ||
-			JwtUser.currentUserRoles().contains(AuthorityName.ROLE_SHOP_USER.name()) ||
-			JwtUser.currentUserRoles().contains(AuthorityName.ROLE_SHOP_ADMIN.name())
-		) {
+		if(JwtUser.currentUserRoles().contains(AuthorityName.ROLE_GUEST.name())) {
 			fileServer = fileServerURLs.getRandomWatermarkServer();
 		} else {
 			fileServer = (fileServerURLs.getRandomServer());
