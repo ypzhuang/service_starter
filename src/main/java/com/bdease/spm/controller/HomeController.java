@@ -21,6 +21,6 @@ public class HomeController extends BaseController {
 
     @GetMapping("/")
     public String home() {    	
-        return "Sipimo service is running.";
+        return "Starter is running.";
     }    
 }

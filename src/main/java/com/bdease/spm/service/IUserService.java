@@ -1,9 +1,7 @@
 package com.bdease.spm.service;
 
-import com.bdease.spm.entity.Shop;
 import com.bdease.spm.entity.User;
 import com.bdease.spm.entity.enums.AuthorityName;
-import com.bdease.spm.vo.UserVO;
 
 import java.util.List;
 
@@ -40,15 +38,7 @@ public interface IUserService extends IService<User> {
 			Boolean status,
 			List<Long> shopIds);
 	
-	List<Shop> getCurrentUserShops();
-	
-	Shop getActiveShopOfCurrentUser();
-	
-	Shop setActiveShopOfCurrentUser(Long shopId);
-	
 	void deleteUser(Long id);
-
-	User saveOrUpdateUser(Long id,UserVO userVO);
 
 	List<User> findUsers(Long shopId,AuthorityName role);
 

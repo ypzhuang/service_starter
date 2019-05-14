@@ -68,12 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/actuator/**/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/actuator/**/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/actuator/**/**").permitAll()
-                
-                .antMatchers(HttpMethod.GET, "/app/**/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/app/**/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/app/**/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/app/**/**").permitAll()
-                
+           
                 .antMatchers(HttpMethod.GET, "/api/**/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/**/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**/**").permitAll()
@@ -95,8 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers(HttpMethod.POST,"/api/auth/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/auth/register").permitAll()
-                .antMatchers(HttpMethod.GET,"/app/auth").permitAll()              
+                .antMatchers(HttpMethod.POST,"/api/auth/register").permitAll()            
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter

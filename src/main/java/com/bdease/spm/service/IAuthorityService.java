@@ -17,8 +17,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2018-12-29
  */
 public interface IAuthorityService extends IService<Authority> {
-	public Authority getOrCreateAuthorityByName(AuthorityName name);
-	public List<Authority> selectByUserId(Long userId);
-	public List<AuthorityName> selectAuthorityNameByUserId(Long userId);	
-	public List<User> selectUsersByAuthorityName(AuthorityName name, boolean filterInShop);
+	Authority getOrCreateAuthorityByName(AuthorityName name);
+
+	List<Authority> selectByUserId(Long userId);
+
+	List<AuthorityName> selectAuthorityNameByUserId(Long userId);
+
+	List<User> selectUsersByAuthorityName(AuthorityName name);
 }

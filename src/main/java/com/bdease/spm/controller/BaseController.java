@@ -1,7 +1,6 @@
 package com.bdease.spm.controller;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -41,72 +40,13 @@ public class BaseController {
             this.error = error;
         }
     }
-    
-    class MapResponse {
-        private  Map<String,String> keyTitles;
-        private List<? extends Object> list = new ArrayList<>();
-        
-        public MapResponse(Map<String,String> keyTitles,List<? extends Object> list){
-            this.keyTitles = keyTitles;
-            this.list  = list;
-        }
 
-        public Map<String, String> getKeyTitles() {
-            return keyTitles;
-        }
-
-        public void setKeyTitles(Map<String, String> keyTitles) {
-            this.keyTitles = keyTitles;
-        }
-
-        public List<? extends Object> getList() {
-            return list;
-        }
-
-        public void setList(List<? extends Object> list) {
-            this.list = list;
-        }
-    }
-    
-    class PageResponse extends MapResponse {
-        private Integer page;
-        private Integer total;
-
-        public PageResponse(Map<String, String> keyTitles, List<? extends Object> list) {
-            super(keyTitles, list);
-        }
-        
-        public PageResponse(Map<String, String> keyTitles, List<? extends Object> list, Integer page, Integer total) {
-            super(keyTitles, list);
-            this.setPage(page);
-            this.setTotal(total);
-        }
-
-        public Integer getPage() {
-            return page;
-        }
-
-        public void setPage(Integer page) {
-            this.page = page;
-        }
-
-        public Integer getTotal() {
-            return total;
-        }
-
-        public void setTotal(Integer total) {
-            this.total = total;
-        }
-
-    }
-    
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleUnexpectedException(Throwable ex) {
         log.error("Unexception error:", ex);
         return new ErrorResponse(ex.getMessage());
-    }
-    
+    }    
     
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(ServerException.class)

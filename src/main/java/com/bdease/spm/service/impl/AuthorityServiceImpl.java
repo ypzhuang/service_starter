@@ -4,14 +4,12 @@ import com.bdease.spm.adapter.LambdaQueryWrapperAdapter;
 import com.bdease.spm.entity.Authority;
 import com.bdease.spm.entity.User;
 import com.bdease.spm.entity.UserAuthority;
-import com.bdease.spm.entity.UserShop;
 import com.bdease.spm.entity.enums.AuthorityName;
 import com.bdease.spm.mapper.AuthorityMapper;
 import com.bdease.spm.security.JwtUser;
 import com.bdease.spm.service.IAuthorityService;
 import com.bdease.spm.service.IUserAuthorityService;
 import com.bdease.spm.service.IUserService;
-import com.bdease.spm.service.IUserShopService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
@@ -39,9 +37,6 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 	
 	@Autowired
 	private IUserAuthorityService userAuthorityService;
-	
-	@Autowired
-	private IUserShopService userShopService;
 	
 	@Autowired
 	private IUserService userService;
@@ -73,15 +68,11 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 	}
 
 	@Override
-	public List<User> selectUsersByAuthorityName(AuthorityName name, boolean filterInShop) {
+	public List<User> selectUsersByAuthorityName(AuthorityName name) {
 		Authority authority =  this.findAuthorityByName(name);		
 		List<UserAuthority> userAuthorities = userAuthorityService.list(new LambdaQueryWrapperAdapter<UserAuthority>().eq(UserAuthority::getAuthorityId, authority.getId()));
 		List<Long> userIds = userAuthorities.stream().map(ua -> ua.getUserId()).collect(Collectors.toList());				
-		if(filterInShop) {
-			userIds = userIds.stream().filter(userId -> 
-				userShopService.count(new LambdaQueryWrapperAdapter<UserShop>().eq(UserShop::getUserId, userId)) > 0
-			).collect(Collectors.toList());
-		}
+		
 		List<User> users = userIds.stream().map(userId -> {
 			return userService.getUser(userId);
 		}).collect(Collectors.toList());

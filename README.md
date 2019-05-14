@@ -1,41 +1,26 @@
 
 ## Prerequisite
 * Oracle JDK 1.8+
-* Gradle 4.0+
 * MySQL 5.7
-* docker
+* docker && docker-compose
 
 
-```
-./gradlew bootRun --args='--spring.profiles.active=dev'
-```
+## Start basic service as DB , Redis 
 
 ```
-./gradlew build --info
-docker run --name basic_s -e "SPRING_PROFILES_ACTIVE=dev" -e "spring_datasource_url=jdbc:mysql://10.1.70.99:3306/yhj?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false" -p 9080:8080  --rm  basic
-
-
-docker run --name fjsj -e "SPRING_PROFILES_ACTIVE=dev" -e "spring_datasource_url=jdbc:mysql://172.16.177.88:3306/fjsj?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false" -e "spring_datasource_password=Mg6WZkHHdGDLpH0QwKS" -d  -p 9999:8080 registry.cn-shanghai.aliyuncs.com/fangju/fjsj_service
-
-
-
-```
-```
-CREATE DATABASE fjsj CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
+docker-compose -f db/docker-compose.yml up -d
 ```
 
-Run
+## Start Starter Service
+* start with default  dev profile
 ```
-docker run --name mysql -v `pwd`:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=12345678 -e MYSQL_DATABASE=yhj -d -p 3306:3306 mysql:5.7
 ./gradlew bootRun
 ```
 
-## API Document
+* or start with prod profile
 ```
-http://127.0.0.1:8080/swagger-ui.html
+./gradlew bootRun --args='--spring.profiles.active=prod'
 ```
-
 
 ## Test
 ```
@@ -53,3 +38,34 @@ open build/reports/tests/test/index.html
 ./gradlew integrationTest
 open build/reports/tests/integrationTest/index.html
 ```
+
+## API Document
+```
+http://127.0.0.1:8080/swagger-ui.html
+```
+
+
+## Docker Image Build
+### Build Docker mage:
+```
+docker build -t service-starter .
+
+```
+
+### Start Docker Container of the Image
+```
+ docker run  --name starter \
+ -e "SPRING_PROFILES_ACTIVE=dev" \
+ -e "spring_datasource_url=jdbc:mysql://IP:3306/starter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false" \
+ -p 9080:8080  --rm  service-starter
+  
+ *** change IP to your own IP ***
+ 
+open http://localhost:9080
+
+```
+
+
+
+
+

@@ -67,6 +67,5 @@ public class User extends BaseEntity {
     private transient List<Authority> authorities; 
 
     private transient List<AuthorityName> authorityNames;
-    
-    private transient List<Shop> shops;
+
 }

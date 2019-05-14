@@ -7,7 +7,7 @@ services:
       - ./data/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=12345678
-      - MYSQL_DATABASE=spm
+      - MYSQL_DATABASE=starter
     ports:
       - "3306:3306"
       
@@ -18,7 +18,7 @@ services:
       - ./data/mysql-test:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=12345678
-      - MYSQL_DATABASE=spm-test
+      - MYSQL_DATABASE=starter-test
     ports:
       - "33060:3306"
       
@@ -29,10 +29,6 @@ services:
     ports:
       - "6379:6379"
       
-  geo_service:
-    image: registry.cn-shanghai.aliyuncs.com/infrastr/geo_service:latest 
-    ports:
-      - "9988:8080"    
-     
+
       
       

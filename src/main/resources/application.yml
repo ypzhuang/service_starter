@@ -6,8 +6,7 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   application:
-    name: 诗碧曼
-
+    name: Service Starter
 
 server:
   port: 8080
@@ -44,11 +43,11 @@ spring:
     profiles: dev
     datasource:
         initialization-mode: always
-        url: jdbc:mysql://127.0.0.1:3306/spm?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        url: jdbc:mysql://127.0.0.1:3306/starter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
         username: root
         password: 12345678
         driver-class-name: com.mysql.jdbc.Driver
-        schema: classpath:spm.sql
+        schema: classpath:schema.sql
         data: classpath:init.sql,classpath:mock.sql
     redis:
       database: 0
@@ -192,7 +191,7 @@ spring:
     profiles: prod
     datasource:
         initialization-mode: always
-        url: jdbc:mysql://127.0.0.1:3306/spm?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        url: jdbc:mysql://127.0.0.1:3306/starter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
         username: root
         password: 12345678
         driver-class-name: com.mysql.jdbc.Driver
@@ -288,7 +287,7 @@ spring:
         username: root
         password: 12345678
         driver-class-name: com.mysql.jdbc.Driver
-        schema: classpath:spm.sql
+        schema: classpath:schema.sql
     redis:
       database: 0
       host: localhost

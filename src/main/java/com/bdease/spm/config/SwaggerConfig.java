@@ -44,21 +44,11 @@ public class SwaggerConfig {
 				.build()
 				.securitySchemes(newArrayList(apiKey()))
 				.tags(
-						new Tag("Order", "订单管理,消费列表，销售记录"),
-						new Tag("Employee", "员工管理"),
-						new Tag("File","文件服务"),
-						new Tag("Goods","商品管理"),
-						new Tag("Guest","客户管理"),
-						new Tag("Home","Home"),
-						new Tag("Photo","护理照片"),
-						new Tag("Shop","店铺"),
-						new Tag("ShopGoods","店铺在售商品"),
+						new Tag("File","文件服务器"),						
+						new Tag("Home","Home"),						
 						new Tag("SMS","短信服务"),
 						new Tag("Auth","认证"),
-						new Tag("Dict","数据字典"),
-						new Tag("MiniEmp","小程序员工端API"),
-						new Tag("MiniGuest","小程序客户端API"),
-						new Tag("Authority","职位")
+						new Tag("Dict","数据字典")					
 				);
 	}
 
@@ -73,10 +63,10 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title(applicationName + "微服务Online  API文档")
+				.title(applicationName + " Service Online API document")
 				.description(apiChangeHistory())
-				.contact(new Contact("John Zhuang", "", "zhuangyinping@gmail.com"))
-				.version("0.0.1-SNAPSHOT")
+				.contact(new Contact("John Zhuang", "", "yinping.zhuang@hp.com"))
+				.version("1.0.0-SNAPSHOT")
 				.build();
 	}
 

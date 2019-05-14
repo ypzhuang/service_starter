@@ -1,25 +1,8 @@
-                                                                                               
-                                                                                               
-   SSSSSSSSSSSSSSS   iiii                       iiii                                           
- SS:::::::::::::::S i::::i                     i::::i                                          
-S:::::SSSSSS::::::S  iiii                       iiii                                           
-S:::::S     SSSSSSS                                                                            
-S:::::S            iiiiiiippppp   ppppppppp   iiiiiii    mmmmmmm    mmmmmmm      ooooooooooo   
-S:::::S            i:::::ip::::ppp:::::::::p  i:::::i  mm:::::::m  m:::::::mm  oo:::::::::::oo 
- S::::SSSS          i::::ip:::::::::::::::::p  i::::i m::::::::::mm::::::::::mo:::::::::::::::o
-  SS::::::SSSSS     i::::ipp::::::ppppp::::::p i::::i m::::::::::::::::::::::mo:::::ooooo:::::o
-    SSS::::::::SS   i::::i p:::::p     p:::::p i::::i m:::::mmm::::::mmm:::::mo::::o     o::::o
-       SSSSSS::::S  i::::i p:::::p     p:::::p i::::i m::::m   m::::m   m::::mo::::o     o::::o
-            S:::::S i::::i p:::::p     p:::::p i::::i m::::m   m::::m   m::::mo::::o     o::::o
-            S:::::S i::::i p:::::p    p::::::p i::::i m::::m   m::::m   m::::mo::::o     o::::o
-SSSSSSS     S:::::Si::::::ip:::::ppppp:::::::pi::::::im::::m   m::::m   m::::mo:::::ooooo:::::o
-S::::::SSSSSS:::::Si::::::ip::::::::::::::::p i::::::im::::m   m::::m   m::::mo:::::::::::::::o
-S:::::::::::::::SS i::::::ip::::::::::::::pp  i::::::im::::m   m::::m   m::::m oo:::::::::::oo 
- SSSSSSSSSSSSSSS   iiiiiiiip::::::pppppppp    iiiiiiiimmmmmm   mmmmmm   mmmmmm   ooooooooooo   
-                           p:::::p                                                             
-                           p:::::p                                                             
-                          p:::::::p                                                            
-                          p:::::::p                                                            
-                          p:::::::p                                                            
-                          ppppppppp                                                            
-                                                                                               
+ $$$$$$\    $$\                          $$\                         
+$$  __$$\   $$ |                         $$ |                        
+$$ /  \__|$$$$$$\    $$$$$$\   $$$$$$\ $$$$$$\    $$$$$$\   $$$$$$\  
+\$$$$$$\  \_$$  _|   \____$$\ $$  __$$\\_$$  _|  $$  __$$\ $$  __$$\ 
+ \____$$\   $$ |     $$$$$$$ |$$ |  \__| $$ |    $$$$$$$$ |$$ |  \__|
+$$\   $$ |  $$ |$$\ $$  __$$ |$$ |       $$ |$$\ $$   ____|$$ |      
+\$$$$$$  |  \$$$$  |\$$$$$$$ |$$ |       \$$$$  |\$$$$$$$\ $$ |      
+ \______/    \____/  \_______|\__|        \____/  \_______|\__| 

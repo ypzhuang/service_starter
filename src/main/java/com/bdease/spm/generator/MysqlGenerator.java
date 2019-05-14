@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 
 public class MysqlGenerator {
-	public static final String PROJECT_PATH = "/Users/yinping/work/projects/ave/sipimo_service/";
+	public static final String PROJECT_PATH = ".";
 	public static final String DB_HOST = "localhost";
 	public static final int DB_PORT = 3306;
 	public static final String DB_USER = "root";
