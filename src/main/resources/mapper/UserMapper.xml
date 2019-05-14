@@ -1,65 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bdease.spm.mapper.UserMapper">
- 	<select id="getUserByOpenId" resultType="User">    
-SELECT 
-    u.*
-FROM
-    user u,
-    mini_program_user m,
-    user_mini_program_user um
-WHERE 
-    um.user_id = u.id
-        AND um.mini_program_user_id = m.id
-        AND m.open_id = #{openId}
-    </select>
-    
-    <select id="pageUsers" resultType="User">    
-SELECT DISTINCT u.* FROM spm.user u LEFT JOIN spm.user_shop us ON u.id = us.user_id 
-LEFT JOIN user_authority ua ON u.id = ua.user_id 
-LEFT JOIN authority a ON ua.authority_id = a.id
-WHERE 1 = 1 
-			
-	    <if test="shopId != null">
-            AND us.shop_id =  #{shopId}
-        </if>
-        <if test="shopIds != null and shopIds.size() > 0">
-        	AND us.shop_id in
-        	<foreach collection="shopIds" item="shopId" index="index" open="(" close=")" separator=",">
-            	#{shopId}
-       		 </foreach>       
-        </if>       
-            AND us.del_flag =  '0'
-            AND u.del_flag = '0'
-        <if test="nameOrUserName != null and nameOrUserName !=''">
-            <bind name="patternUsername" value="'%' + nameOrUserName + '%'" />
-            AND (u.username LIKE #{patternUsername} OR u.name LIKE #{patternUsername})           
-        </if>
-        <if test="status != null">
-          AND u.enabled  = #{status}
-        </if>
-        <if test="role != null">
-          AND a.name = #{role}
-        </if>
-        AND (a.name != 'ROLE_GUEST' AND a.name != 'ROLE_SUPER_ADMIN')
-    </select>
-
-
-    <select id="findUsers" resultType="User">
-        SELECT DISTINCT u.* FROM spm.user u LEFT JOIN spm.user_shop us ON u.id = us.user_id
-        LEFT JOIN user_authority ua ON u.id = ua.user_id
-        LEFT JOIN authority a ON ua.authority_id = a.id
-        WHERE 1 = 1
-        AND u.enabled  = 1
-        <if test="shopId != null">
-            AND us.shop_id =  #{shopId}
-        </if>
-            AND us.del_flag =  '0'
-        <if test="role != null">
-            AND a.name = #{role}
-        </if>
-    </select>
-
+<mapper namespace="com.hp.tiger.starter.mapper.UserMapper">
 
 </mapper>
 

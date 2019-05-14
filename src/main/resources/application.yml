@@ -15,8 +15,8 @@ server:
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.bdease.spm.entity
-  type-enums-package: com.bdease.spm.entity.enums
+  typeAliasesPackage: com.hp.tiger.starter.entity
+  type-enums-package: com.hp.tiger.starter.entity.enums
   global-config:
     # 数据库相关配置
     db-config:
@@ -136,8 +136,8 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.bdease.spm.queue.RedisMessageMailSubscriber
-          - com.bdease.spm.queue.RedisMessageSMSSubscriber   
+          - com.hp.tiger.starter.queue.RedisMessageMailSubscriber
+          - com.hp.tiger.starter.queue.RedisMessageSMSSubscriber
 
     
 role:

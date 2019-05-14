@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bdease.spm.mapper.DictionaryMapper">
-    <select id="selectGroupByTypeCode" resultType="com.bdease.spm.vo.DictTypeVO">
+<mapper namespace="com.hp.tiger.starter.mapper.DictionaryMapper">
+    <select id="selectGroupByTypeCode" resultType="com.hp.tiger.starter.vo.DictTypeVO">
 select  module,type_code,type_name from dictionary group by module, type_code,type_name order by type_code;
     </select>
     
-    <select id="selectByTypeCode" resultType="com.bdease.spm.vo.DictCodeVO">
+    <select id="selectByTypeCode" resultType="com.hp.tiger.starter.vo.DictCodeVO">
  select id, name,value,remark,enable  from dictionary where  type_code = #{typeCode} order by value
     </select>
 

@@ -130,7 +130,7 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.bdease.spm.queue.RedisMessageMailSubscriber
+          - RedisMessageMailSubscriber
 
 role:
   users:
