@@ -57,7 +57,7 @@ public class AuthControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
 				.addFilter(springSecurityFilterChain).build();
 		
-		String ret = this.mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(new JwtAuthenticationRequest("admin","12345678"))))
+		String ret = this.mockMvc.perform(post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(new JwtAuthenticationRequest("superAdmin","12345678@test"))))
                 .andReturn().getResponse().getContentAsString();
     	JwtAuthenticationResponse response = gson.fromJson(ret, JwtAuthenticationResponse.class);
     	this.token = response.getToken();
@@ -66,7 +66,7 @@ public class AuthControllerTest {
 
     @Test
     public void testLogin_shouldReturnToken() throws Exception {
-    	this.mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(new JwtAuthenticationRequest("admin","12345678"))))
+    	this.mockMvc.perform(post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(new JwtAuthenticationRequest("superAdmin","12345678@test"))))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("token")))
                 .andDo(print());
@@ -74,6 +74,6 @@ public class AuthControllerTest {
     
     @Test
     public void testGetUserWithToken() throws Exception {    	
-    	this.mockMvc.perform(get("/api/auth/user").header("Authorization", token)).andExpect(status().isOk());    	
+    	this.mockMvc.perform(get("/api/v1/auth/user").header("Authorization", token)).andExpect(status().isOk());
     }
 }

@@ -5,8 +5,8 @@ server:
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.bdease.spm.entity
-  typeEnumsPackage: com.bdease.spm.entity.enums
+  typeAliasesPackage: com.hp.tiger.starter.entity
+  typeEnumsPackage: com.hp.tiger.starter.entity.enums
   global-config:
     # 数据库相关配置
     db-config:
@@ -19,8 +19,8 @@ mybatis-plus:
       #数据库大写下划线转换
       #capital-mode: true
       #逻辑删除配置
-      logic-delete-value: 0
-      logic-not-delete-value: 1
+      logic-delete-value: 1
+      logic-not-delete-value: 0
     #刷新mapper 调试神器
     refresh: true
   # 原生配置
@@ -34,14 +34,14 @@ spring:
         max-file-size: 10MB
         max-request-size: 10MB
     application:
-      name: 房聚松江   
+      name: Service Starter   
     datasource:
         initialization-mode: always
-        url: jdbc:mysql://127.0.0.1:33060/spm-test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        url: jdbc:mysql://127.0.0.1:33060/starter-test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
         username: root
         password: 12345678
         driver-class-name: com.mysql.jdbc.Driver
-        schema: classpath:spm.sql
+        schema: classpath:schema.sql
     redis:
       database: 0
       host: localhost
@@ -67,7 +67,7 @@ spring:
             timeout: 5000
             writetimeout: 5000
             debug: true
-        nickName: 诗碧曼
+        nickName: 小二
   
 jwt:
   header: Authorization
@@ -85,7 +85,7 @@ logging:
         web: INFO
         security: INFO
     com:
-      bdease: DEBUG
+      hp: DEBUG
  
 app:
   defaultPassword: 12345678
@@ -93,8 +93,6 @@ app:
     appId: wx209e977d979fe4cf
     appSecret: 749dda22168af8c9ee557f0ea6087393
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  geo:
-    url: http://127.0.0.1:9988/geo/
   aliyun:
     aliyun-configs:
       - 
@@ -102,7 +100,7 @@ app:
         access-key-id: LTAIhF7Jr6UCZqTU
         access-secret: uk4fqYHKse0KYnMkBhf7FFWfTiNoaT        
         sms-config:
-          sign-name:  房聚网络
+          sign-name:  惠普研发
           mock: true
           templates:
             - 
@@ -130,20 +128,10 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - RedisMessageMailSubscriber
+          - com.hp.tiger.starter.queue.RedisMessageMailSubscriber
 
 role:
-  users:
-    - 
-      #店员
-      role: ROLE_SHOP_USER
-      user: shopUser
-      password: 12345678@test
-    -
-      #店长
-      role: ROLE_SHOP_ADMIN
-      user: shopAdmin
-      password: 12345678@test
+  users: 
     - 
       #管理员(合伙人)
       role: ROLE_MANAGER

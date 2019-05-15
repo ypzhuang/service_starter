@@ -74,7 +74,7 @@ spring:
             timeout: 5000
             writetimeout: 5000
             debug: true
-        nickName: 诗碧曼
+        nickName: 小二
     
 jwt:
   header: Authorization
@@ -110,7 +110,7 @@ app:
         access-key-id: LTAIhF7Jr6UCZqTU
         access-secret: uk4fqYHKse0KYnMkBhf7FFWfTiNoaT        
         sms-config:
-          sign-name:  房聚网络
+          sign-name:  惠普研发
           templates:
             - 
               template-name: login
@@ -185,7 +185,7 @@ spring:
         username: root
         password: 12345678
         driver-class-name: com.mysql.jdbc.Driver
-        schema: classpath:spm.sql
+        schema: classpath:schema.sql
     redis:
       database: 0
       host: localhost
@@ -216,7 +216,7 @@ logging:
         web: INFO
         security: INFO
     com:
-      bdease: INFO
+      hp: INFO
       
 app:
   defaultPassword: 1q2w3e4r5T
@@ -224,9 +224,7 @@ app:
     appId: wx209e977d979fe4cf
     appSecret: 749dda22168af8c9ee557f0ea6087393
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  geo:
-    url: http://geo_service:8080/geo/
- 
+
 role:
   users:
     - 
@@ -305,8 +303,7 @@ app:
     appId: wx209e977d979fe4cf
     appSecret: 749dda22168af8c9ee557f0ea6087393
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  geo:
-    url: http://geo_service:8080/geo/
+
         
 role:
   users:

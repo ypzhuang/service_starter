@@ -1,10 +1,9 @@
 package com.hp.tiger.starter.entity.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.core.enums.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum DelFlag implements IEnum<String>{
+public enum DelFlag {
     YES("0", "有效"),
     NO("1", "删除");
 

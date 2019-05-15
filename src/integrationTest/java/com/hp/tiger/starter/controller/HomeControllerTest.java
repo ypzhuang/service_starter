@@ -48,10 +48,4 @@ public class HomeControllerTest {
                 .andDo(print()) 
                 .andExpect(content().string(containsString("running")));
     }
-    
-    @Test
-    public void whenTestAdminCredentials_thenOk() throws Exception {
-        mockMvc.perform(get("/adminPage")).andExpect(status().isUnauthorized()).andDo(print());     
-    }      
-    
 }
