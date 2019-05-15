@@ -16,12 +16,13 @@ import java.util.Scanner;
 
 
 public class MysqlGenerator {
-	public static final String PROJECT_PATH = ".";
+	public static final String PROJECT_PATH = System.getProperty("user.dir");
+    public static final String DB = "starter";
 	public static final String DB_HOST = "localhost";
 	public static final int DB_PORT = 3306;
 	public static final String DB_USER = "root";
 	public static final String DB_PASSWORD = "12345678";
-	public static final String BASE_BACKAGE = "com.bdease.spm";
+	// public static final String BASE_BACKAGE = "com.hp.tiger.starter";
 	
     public static String scanner(String tip) {
     	try (Scanner scanner = new Scanner(System.in)) { 
@@ -39,13 +40,15 @@ public class MysqlGenerator {
     }
 
     public static void main(String[] args) {
+        String BASE_BACKAGE = MysqlGenerator.class.getCanonicalName().substring(0,MysqlGenerator.class.getCanonicalName().lastIndexOf(".generator.MysqlGenerator"));
+        System.out.println(BASE_BACKAGE);
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
        
-        gc.setOutputDir(PROJECT_PATH + "src/main/java");
+        gc.setOutputDir(PROJECT_PATH + "/src/main/java");
         gc.setAuthor("John Zhuang");
         gc.setOpen(false);
         gc.setSwagger2(true);       
@@ -53,7 +56,7 @@ public class MysqlGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl(String.format("jdbc:mysql://%s:%d/spm?useUnicode=true&useSSL=false&characterEncoding=utf8", DB_HOST, DB_PORT));
+        dsc.setUrl(String.format("jdbc:mysql://%s:%d/%s?useUnicode=true&useSSL=false&characterEncoding=utf8", DB_HOST, DB_PORT, DB));
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername(DB_USER);
@@ -79,7 +82,7 @@ public class MysqlGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
-                return PROJECT_PATH + "src/main/resources/mapper/"   + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return PROJECT_PATH + "/src/main/resources/mapper/"   + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
         cfg.setFileOutConfigList(focList);
