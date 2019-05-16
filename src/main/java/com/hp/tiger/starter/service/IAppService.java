@@ -1,6 +1,8 @@
 package com.hp.tiger.starter.service;
 
 import com.hp.tiger.starter.entity.App;
+import com.hp.tiger.starter.vo.AppVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAppService extends IService<App> {
 
+	App saveApp(AppVO appVO);
+	
+	IPage<App> getAppsByPage(Integer current, Integer size);
+
+	App getApp(String appId, String security);
 }

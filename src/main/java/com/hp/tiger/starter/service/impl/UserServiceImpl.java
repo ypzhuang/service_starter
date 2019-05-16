@@ -3,15 +3,12 @@ package com.hp.tiger.starter.service.impl;
 import com.hp.tiger.starter.entity.Authority;
 import com.hp.tiger.starter.entity.User;
 
-import com.hp.tiger.starter.entity.enums.AuthorityName;
 import com.hp.tiger.starter.mapper.UserMapper;
 import com.hp.tiger.starter.security.JwtUser;
 import com.hp.tiger.starter.service.IAuthorityService;
 import com.hp.tiger.starter.service.IUserAuthorityService;
 import com.hp.tiger.starter.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.time.LocalDateTime;

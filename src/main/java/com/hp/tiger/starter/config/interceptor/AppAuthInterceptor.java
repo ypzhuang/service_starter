@@ -1,0 +1,75 @@
+/**
+ * created Feb 11, 2019 by ypzhuang
+ * 
+ * App AppID & App Security Validator
+ */
+
+package com.hp.tiger.starter.config.interceptor;
+
+import java.time.Duration;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.aliyuncs.utils.StringUtils;
+import com.hp.tiger.starter.service.IAppService;
+
+public class AppAuthInterceptor extends HandlerInterceptorAdapter {
+	protected  final Logger log = LoggerFactory.getLogger(getClass());
+	
+	@Value("${app_api.header.appId}")
+	private String appIdHeader;
+	
+	@Value("${app_api.header.appSecurity}")
+	private String appSecurityHeader;
+	
+	@Value("${app_api.cache}")
+	private Integer cache;
+	
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	
+	@Autowired
+	private IAppService appService;
+	
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		String appId = request.getHeader(appIdHeader);
+		String appSecurity = request.getHeader(appSecurityHeader);
+		log.info("AppID:{} request {} {}  ...", appId, request.getMethod(), request.getRequestURI());
+		
+		if(StringUtils.isEmpty(appId) || StringUtils.isEmpty(appSecurity)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, String.format("Headers: %s and %s shouldn't be null.", appIdHeader,appSecurityHeader));
+			return false;
+		}
+		String security = stringRedisTemplate.opsForValue().get(appId);	
+		if (!appId.equals(security)) {			
+			if (!validate(appId, appSecurity)) {
+				log.error("FORBIDDEN AppID:{} to request {} {}.", appId, request.getMethod(), request.getRequestURI());
+				response.sendError(HttpServletResponse.SC_FORBIDDEN, "not authrorized");
+				return false;
+			} else {
+				stringRedisTemplate.opsForValue().set(appId, appSecurity, Duration.ofSeconds(cache));
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean validate(String appId, String appSecurity) {
+		return appService.getApp(appId, appSecurity) != null;	
+	}
+	
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+	}
+}

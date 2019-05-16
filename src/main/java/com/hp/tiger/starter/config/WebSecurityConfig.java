@@ -73,6 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/**/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/**/**").permitAll()
+                
+                .antMatchers(HttpMethod.GET, "/app/**/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/app/**/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/app/**/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/app/**/**").permitAll()
 
                 // allow anonymous resource requests
                 .antMatchers(

@@ -1,5 +1,11 @@
 server:
   port: 8080
+ 
+app_api:
+  header: 
+    appId: AppId
+    appSecurity: AppSecurity
+  cache: 3600
 
 #mybatis
 mybatis-plus:

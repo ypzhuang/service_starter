@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Profile;
 import com.google.common.base.Predicate;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -37,7 +38,7 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("Service")
+				.groupName("API Service")
 				.apiInfo(apiInfo())
 				.select()
 				.paths(businessOnlyEndpoints())
@@ -48,7 +49,8 @@ public class SwaggerConfig {
 						new Tag("Home","Home"),						
 						new Tag("SMS","短信服务"),
 						new Tag("Auth","认证"),
-						new Tag("Dict","数据字典")					
+						new Tag("Dict","数据字典"),
+						new Tag("App","App密钥")
 				);
 	}
 
@@ -63,8 +65,8 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title(applicationName + " Service Online API document")
-				.description(apiChangeHistory())
+				.title(applicationName + " Service API Online")
+				.description(apiChangeHistory("app_api_changehistory.md"))
 				.contact(new Contact("John Zhuang", "", "yinping.zhuang@hp.com"))
 				.version("1.0.0-SNAPSHOT")
 				.build();
@@ -75,14 +77,49 @@ public class SwaggerConfig {
 		return new ApiKey("token", "Authorization", "header");
 	}
 	
-	private String apiChangeHistory() {	
+	private String apiChangeHistory(String fileName) {	
 		InputStream input;
 		try {
-			input = FileHelper.getInputStream("changehistory.md");
+			input = FileHelper.getInputStream(fileName);
 			return IOUtils.toString(input, Charset.defaultCharset());
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
-	}	
+	}
+	
+	@Bean
+	public Docket appApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("APP Service")
+				.apiInfo(appInfo())
+				.select()
+				.paths(PathSelectors.ant("/app/**")).build()
+				.securitySchemes(newArrayList(apiAppId(), apiAppSecurity()));
+	}
+
+	@Value("${app_api.header.appId}")
+	private String appIdHeader;
+	
+	@Value("${app_api.header.appSecurity}")
+	private String appSecurityHeader;
+	
+	@Bean
+	SecurityScheme apiAppId() {
+		return new ApiKey("appId", appIdHeader, "header");
+	}
+
+	@Bean
+	SecurityScheme apiAppSecurity() {
+		return new ApiKey("appSecurity", appSecurityHeader, "header");
+	}
+	
+	private ApiInfo appInfo() {		
+		return new ApiInfoBuilder()
+				.title(applicationName + " APP API Online")
+				.description(apiChangeHistory("service_api_changehistory.md"))
+				.contact(new Contact("John Zhuang", "", "yinping.zhuang@hp.com"))
+				.version("1.0.0-SNAPSHOT")
+				.build();
+	}
 }

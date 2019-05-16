@@ -7,6 +7,7 @@
 package com.hp.tiger.starter.config;
 
 
+import com.hp.tiger.starter.config.interceptor.AppAuthInterceptor;
 import com.hp.tiger.starter.config.interceptor.SpringPerformanceInterceptor;
 import com.hp.tiger.starter.converter.UniversalEnumConverterFactory;
 import org.slf4j.Logger;
@@ -30,10 +31,16 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(springPerformanceInterceptor());
+		registry.addInterceptor(appAuthInterceptor()).addPathPatterns("/app/**");
 	}
 	
 	@Bean
 	public SpringPerformanceInterceptor springPerformanceInterceptor() {
 		return new SpringPerformanceInterceptor();
+	}
+	
+	@Bean
+	public AppAuthInterceptor appAuthInterceptor() {
+		return new AppAuthInterceptor();
 	}
 }

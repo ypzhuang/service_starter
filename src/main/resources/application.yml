@@ -13,6 +13,12 @@ server:
 #  servlet:
 #    context-path: /starter
 
+app_api:
+  header: 
+    appId: AppId
+    appSecurity: AppSecurity
+  cache: 3600
+
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
@@ -85,8 +91,9 @@ jwt:
   route:
     authentication:
       path: login
-      refresh: refresh
+      refresh: refresh    
 
+  
 logging:
   level:   
     org:
