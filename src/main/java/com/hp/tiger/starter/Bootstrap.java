@@ -6,6 +6,7 @@ import com.hp.tiger.starter.config.InitUserConfiguration;
 import com.hp.tiger.starter.entity.Authority;
 import com.hp.tiger.starter.entity.User;
 import com.hp.tiger.starter.entity.enums.AuthorityName;
+import com.hp.tiger.starter.service.IAppService;
 import com.hp.tiger.starter.service.IAuthorityService;
 import com.hp.tiger.starter.service.IUserService;
 import org.slf4j.Logger;
@@ -37,11 +38,21 @@ public class Bootstrap {
     
     @Autowired
     private InitUserConfiguration initUserConfig;
+    
+    @Autowired
+    private IAppService appService;
 
 	@PostConstruct
 	public void bootstrap() {
 		log.info("bootstrap in a product env? {}",isProd());
 		initUserAndRole();
+		if(!isProd()) {
+			mockApp();
+		}
+	}
+
+	private void mockApp() {
+		appService.mockApp();		
 	}
 
 	private void initUserAndRole() {

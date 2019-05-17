@@ -58,11 +58,13 @@ public class AppAuthInterceptor extends HandlerInterceptorAdapter {
 				response.sendError(HttpServletResponse.SC_FORBIDDEN, "not authrorized");
 				return false;
 			} else {
-				stringRedisTemplate.opsForValue().set(appId, appSecurity, Duration.ofSeconds(cache));
-				return true;
+				stringRedisTemplate.opsForValue().set(appId, appSecurity, Duration.ofSeconds(cache));				
 			}
-		}
-		return false;
+		} 
+		
+		request.setAttribute("APP_ID",appId);
+		return true;
+				
 	}
 	
 	private boolean validate(String appId, String appSecurity) {
@@ -71,5 +73,6 @@ public class AppAuthInterceptor extends HandlerInterceptorAdapter {
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+		request.removeAttribute("APP_ID");
 	}
 }

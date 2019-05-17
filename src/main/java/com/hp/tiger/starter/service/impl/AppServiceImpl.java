@@ -37,6 +37,16 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements IAppS
 		return app;
 	}
 	
+	@Transactional
+	@Override
+	public App mockApp() {
+		App app = new App();		
+		app.setAppId("415327502909408fa9634faec2b187f7");
+		app.setAppSecurity("2561135a7f9643a8a1f7eb3ea8165631");	
+		this.save(app);
+		return app;
+	}
+	
 	@Override
 	public IPage<App> getAppsByPage(Integer current, Integer size) {
 		Page<App> page = new Page<>(current,size);	

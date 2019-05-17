@@ -89,14 +89,15 @@ public class SwaggerConfig {
 	}
 	
 	@Bean
-	public Docket appApi() {
+	public Docket appApi() {	
 		return new Docket(DocumentationType.SWAGGER_2)
 				.groupName("APP Service")
 				.apiInfo(appInfo())
 				.select()
 				.paths(PathSelectors.ant("/app/**")).build()
-				.securitySchemes(newArrayList(apiAppId(), apiAppSecurity()));
-	}
+				.securitySchemes(newArrayList(apiAppId(), apiAppSecurity()))				
+				.tags(new Tag("Message","消息"));
+	}	
 
 	@Value("${app_api.header.appId}")
 	private String appIdHeader;

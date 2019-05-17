@@ -17,7 +17,10 @@ public interface IAppService extends IService<App> {
 
 	App saveApp(AppVO appVO);
 	
+	App mockApp(); // only for test
+	
 	IPage<App> getAppsByPage(Integer current, Integer size);
 
 	App getApp(String appId, String security);
+	
 }
