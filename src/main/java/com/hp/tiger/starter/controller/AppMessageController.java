@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hp.tiger.starter.controller.BaseController;
 import com.hp.tiger.starter.entity.AppMessage;
+import com.hp.tiger.starter.entity.enums.MessageStatus;
 import com.hp.tiger.starter.service.IAppMessageService;
 import com.hp.tiger.starter.vo.EmailMessageVO;
 import com.hp.tiger.starter.vo.SMSMessageVO;
@@ -22,6 +23,7 @@ import com.monitorjbl.json.JsonView;
 import com.monitorjbl.json.Match;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -61,23 +63,38 @@ public class AppMessageController extends BaseController {
 	
 	@PutMapping(value = "/email/{messageId}")
     @ApiOperation(value = "取消邮件发送")
-	public void cancelEmail(@PathVariable String messageId) {		
+	public void cancelEmail(@PathVariable String messageId) {
+		//TODO
 	}
 	
 	@PutMapping(value = "/sms/{messageId}")
     @ApiOperation(value = "取消短信发送")
-	public void cancelSMS(@PathVariable String messageId) {		
+	public void cancelSMS(@PathVariable String messageId) {	
+		//TODO
 	}
 	
 	@GetMapping(value = "/email/{messageId}")
     @ApiOperation(value = "获取邮件发送状态")
-	public String getEmailStatus(@PathVariable String messageId) {	
-		return "Sending";
+	public AppMessage getEmailStatus(@PathVariable String messageId) {
+		//TODO
+		AppMessage message = new AppMessage();
+		message.setMessageId(messageId);
+		message.setStatus(MessageStatus.FAILED);
+		message.setReason("email doesn't exists.");
+		return super.json.use(JsonView.with(message)
+		        .onClass(AppMessage.class, Match.match().exclude("*").include("status","reason"))
+		       ).returnValue();
 	}
 	
 	@GetMapping(value = "/sms/{messageId}")
     @ApiOperation(value = "获取短信发送状态")
-	public String getSMSStatus(@PathVariable String messageId) {
-		return "Sent";
+	public AppMessage getSMSStatus(@PathVariable String messageId) {	
+		//TODO
+		AppMessage message = new AppMessage();
+		message.setMessageId(messageId);
+		message.setStatus(MessageStatus.SUCCESSED);		
+		return super.json.use(JsonView.with(message)
+		        .onClass(AppMessage.class, Match.match().exclude("*").include("status","reason"))
+		       ).returnValue();	
 	}	
 }

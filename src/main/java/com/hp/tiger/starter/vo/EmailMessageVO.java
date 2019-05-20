@@ -44,6 +44,6 @@ public class EmailMessageVO {
 	@NotNull(message="邮件正文不能为空")
 	private String content;
 	
-	@ApiModelProperty(value = "附件")
+	@ApiModelProperty(value = "附件URL列表")
 	private List<String> attachments;
 }
