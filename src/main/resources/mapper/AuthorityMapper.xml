@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hp.tiger.starter.mapper.AuthorityMapper">
-    <select id="selectByUserId" resultType="com.hp.tiger.starter.entity.Authority">
+<mapper namespace="com.hptiger.starter.mapper.AuthorityMapper">
+    <select id="selectByUserId" resultType="com.hptiger.starter.entity.Authority">
 SELECT 
     b.*
 FROM

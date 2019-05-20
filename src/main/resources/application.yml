@@ -23,8 +23,8 @@ app_api:
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.hp.tiger.starter.entity
-  type-enums-package: com.hp.tiger.starter.entity.enums
+  typeAliasesPackage: com.hptiger.starter.entity
+  type-enums-package: com.hptiger.starter.entity.enums
   global-config:
     # 数据库相关配置
     db-config:
@@ -71,7 +71,7 @@ spring:
         shutdown-timeout: 200ms
     mail:
       host: smtp.exmail.qq.com
-      username: webmaster@fangjusj.com
+      username: webmaster@hptiger.com
       password: 1q2w3e4r5t6y7u8i9o)P
       port: 587
       properties:
@@ -119,7 +119,7 @@ app:
         access-key-id: LTAIhF7Jr6UCZqTU
         access-secret: uk4fqYHKse0KYnMkBhf7FFWfTiNoaT        
         sms-config:
-          sign-name:  惠普研发
+          sign-name:  虎虎研发
           templates:
             - 
               template-name: login
@@ -145,8 +145,8 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.hp.tiger.starter.queue.RedisMessageMailSubscriber
-          - com.hp.tiger.starter.queue.RedisMessageSMSSubscriber
+          - com.hptiger.starter.queue.RedisMessageMailSubscriber
+          - com.hptiger.starter.queue.RedisMessageSMSSubscriber
 
     
 role:
