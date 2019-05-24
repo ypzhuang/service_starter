@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/app/v1/messages")
-@Api(tags = {"Message"})
+@Api(tags = {"AppMessages"})
 public class AppMessageController extends BaseController {
 	@Autowired
 	private IAppMessageService messageService;

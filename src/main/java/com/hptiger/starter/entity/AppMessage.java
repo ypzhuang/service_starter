@@ -1,6 +1,7 @@
 package com.hptiger.starter.entity;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hptiger.starter.entity.enums.DelFlag;
 import com.hptiger.starter.entity.enums.MessageClass;
@@ -46,15 +47,19 @@ public class AppMessage extends BaseEntity {
     private String mqMsgId;
 
     @ApiModelProperty(value = "消息到达接口时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime receiveDate;
 
     @ApiModelProperty(value = "消息发布到MQ时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime queuingDate;
 
     @ApiModelProperty(value = "消息请求发送时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime sendDate;
 
     @ApiModelProperty(value = "消息取消时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime cancelDate;
 
     @ApiModelProperty(value = "状态")

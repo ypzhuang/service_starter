@@ -41,7 +41,7 @@ public class SwaggerConfig {
 				.groupName("API Service")
 				.apiInfo(apiInfo())
 				.select()
-				.paths(businessOnlyEndpoints())
+				.paths(PathSelectors.ant("/api/**"))
 				.build()
 				.securitySchemes(newArrayList(apiKey()))
 				.tags(
@@ -50,7 +50,8 @@ public class SwaggerConfig {
 						new Tag("SMS","短信服务"),
 						new Tag("Auth","认证"),
 						new Tag("Dict","数据字典"),
-						new Tag("App","App密钥")
+						new Tag("App","App密钥"),
+						new Tag("Message","消息")
 				);
 	}
 
@@ -96,7 +97,9 @@ public class SwaggerConfig {
 				.select()
 				.paths(PathSelectors.ant("/app/**")).build()
 				.securitySchemes(newArrayList(apiAppId(), apiAppSecurity()))				
-				.tags(new Tag("Message","消息"));
+				.tags(
+						new Tag("AppMessages","App消息")
+				);
 	}	
 
 	@Value("${app_api.header.appId}")

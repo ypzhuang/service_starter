@@ -38,6 +38,6 @@ public class MailServiceTest {
 	@Test
 	public void sendTemplateMessage_() {
 		Map<String,String> map = ImmutableMap.of("code", "654321");
-		mailService.sendTemplateMessage("johnzhuang@mailinator.comm", "Hello  Template Message", "login",map);
+		mailService.sendTemplateMessage("johnzhuang@mailinator.com", "Hello  Template Message", "login",map);
 	}	
 }

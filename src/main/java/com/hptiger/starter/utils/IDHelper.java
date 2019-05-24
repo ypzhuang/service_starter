@@ -14,9 +14,9 @@ public class IDHelper {
 	public static String maskUUID(String uuid) {
 		Asserts.check(uuid != null && uuid.length() == 32, "UUID should have no -");		
 		String head = uuid.substring(0, 4);
-		String tail = uuid.substring(uuid.length()-4,uuid.length());
+		String tailer = uuid.substring(uuid.length()-4,uuid.length());
 		String stars = stars(uuid.length() - 8);
-		return head + stars + tail;		
+		return head + stars + tailer;
 	}
 	
 	public static String stars(int starLength) {
