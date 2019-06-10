@@ -61,9 +61,9 @@ spring:
           min-idle: 0
         shutdown-timeout: 200ms
     mail:
-      host: smtp.exmail.qq.com
-      username: webmaster@hptiger.com
-      password: 1q2w3e4r5t6y7u8i9o)P
+      host: smtp.sendgrid.net
+      username: apikey
+      password: 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
       port: 587
       properties:
         mail:

@@ -107,17 +107,15 @@ logging:
 app:
   defaultPassword: 12345678
   mini:
-    appId: wx209e977d979fe4cf
-    appSecret: 749dda22168af8c9ee557f0ea6087393
+    appId: weixinAPPID
+    appSecret: weixinAPPSecret
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  geo:
-    url: http://127.0.0.1:9988/geo/
   aliyun:
     aliyun-configs:
       - 
         tenent-code: ORG10001         
-        access-key-id: LTAIhF7Jr6UCZqTU
-        access-secret: uk4fqYHKse0KYnMkBhf7FFWfTiNoaT        
+        access-key-id: ali access key id
+        access-secret: ali access secret        
         sms-config:
           sign-name:  虎虎研发
           templates:
@@ -230,8 +228,8 @@ logging:
 app:
   defaultPassword: 1q2w3e4r5T
   mini:
-    appId: wx209e977d979fe4cf
-    appSecret: 749dda22168af8c9ee557f0ea6087393
+    appId: wechat app id
+    appSecret: wechat app secret
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
 
 role:
@@ -309,10 +307,9 @@ logging:
 app:
   defaultPassword: 12345678
   mini:
-    appId: wx209e977d979fe4cf
-    appSecret: 749dda22168af8c9ee557f0ea6087393
+    appId: wechat app id
+    appSecret: wechat app secret
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-
         
 role:
   users:
@@ -322,9 +319,9 @@ role:
       user: manager
       password: 12345678@test1
     -
-      #店长
-      role: ROLE_SHOP_ADMIN
-      user: shopAdmin
+      #客户
+      role: ROLE_GUEST
+      user: guest
       password: 12345678@test1
     -
       #超级管理员
