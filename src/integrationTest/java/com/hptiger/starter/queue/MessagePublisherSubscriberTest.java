@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.hptiger.starter.utils.NumberHelper;
 import com.hptiger.starter.context.SpringContextBridge;
+import com.hptiger.starter.queue.msg.ValidationCodeMessage;
 import com.hptiger.starter.service.impl.aliyun.SMSService;
 import org.junit.Assert;
 import org.junit.Test;

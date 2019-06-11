@@ -143,8 +143,8 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.hptiger.starter.queue.RedisMessageMailSubscriber
-          - com.hptiger.starter.queue.RedisMessageSMSSubscriber
+          - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
+          - com.hptiger.starter.queue.sub.RedisMessageSMSSubscriber
 
     
 role:

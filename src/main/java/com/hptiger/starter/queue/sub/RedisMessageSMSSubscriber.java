@@ -1,12 +1,13 @@
 /**
  * created Mar 1, 2019 by ypzhuang
  * 
- * TODO 功能描述
+ * RedisMessageSMSSubscriber
  */
 
-package com.hptiger.starter.queue;
+package com.hptiger.starter.queue.sub;
 
 import com.hptiger.starter.context.SpringContextBridge;
+import com.hptiger.starter.queue.msg.ValidationCodeMessage;
 import com.hptiger.starter.service.impl.aliyun.SMSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +24,19 @@ public class RedisMessageSMSSubscriber implements MessageListener {
 		String channel = new String(message.getChannel());
 		log.debug("Message received: {} on topic: [{}]", message.toString(), channel);
 		
-		if(MessagePublisher.QUEUE_VALIDATION_CODE.equals(channel)) {					
+		if (ValidationCodeMessage.QUEUE_VALIDATION_CODE.equals(channel)) {
 			@SuppressWarnings("unchecked")
-			RedisTemplate<String, Object> redisTemplate=  SpringContextBridge.services().getService("redisTemplate", RedisTemplate.class);
+			RedisTemplate<String, Object> redisTemplate = SpringContextBridge.services().getService("redisTemplate",
+					RedisTemplate.class);
 			Object obj = redisTemplate.getValueSerializer().deserialize(message.getBody());
-						
-			if(MessagePublisher.QUEUE_VALIDATION_CODE.equals(channel)) {			
-				if(obj instanceof ValidationCodeMessage) {
-					ValidationCodeMessage msg = (ValidationCodeMessage)obj;	
-					SMSService smsService = SpringContextBridge.services().getService(msg.getFromTenentCode(), SMSService.class);
-					smsService.sendMessage(msg.getTo(), msg.getTemplate(), msg.getParams());
-					log.debug("SMS sent: {}",msg);					
-				}
-			}				
+
+			if (obj instanceof ValidationCodeMessage) {
+				ValidationCodeMessage msg = (ValidationCodeMessage) obj;
+				SMSService smsService = SpringContextBridge.services().getService(msg.getFromTenentCode(),
+						SMSService.class);
+				smsService.sendMessage(msg.getTo(), msg.getTemplate(), msg.getParams());
+				log.debug("SMS sent: {}", msg);			}
+
 		}
 	}
 

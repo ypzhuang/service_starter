@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hptiger.starter.ex.ApplicationException;
 import com.hptiger.starter.queue.MessagePublisher;
-import com.hptiger.starter.queue.ValidationCodeMessage;
+import com.hptiger.starter.queue.msg.ValidationCodeMessage;
 import com.hptiger.starter.utils.NumberHelper;
 
 import io.swagger.annotations.Api;
