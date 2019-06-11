@@ -19,7 +19,7 @@ public class PicturePathConverterTest {
 		 String pictureURL = PicturePathConverter.getInstance().picturePathWithFileServer("group/zz/hello.png");
 		
 		//Then
-		assertThat(pictureURL).isIn("http://47.96.166.81:8888/group/zz/hello.png","http://116.62.71.222:8888/group/zz/hello.png");
+		assertThat(pictureURL).isIn("http://xxx1:8888/group/zz/hello.png","http://xxx2:8888/group/zz/hello.png");
 	}
 	
 	@Test
@@ -29,7 +29,7 @@ public class PicturePathConverterTest {
 		 String pictureURL = PicturePathConverter.getInstance().picturePathWithFileServer("/group/zz/hello.png");
 		
 		//Then
-		assertThat(pictureURL).isIn("http://47.96.166.81:8888/group/zz/hello.png","http://116.62.71.222:8888/group/zz/hello.png");
+		assertThat(pictureURL).isIn("http://xxx1:8888/group/zz/hello.png","http://xxx2:8888/group/zz/hello.png");
 	}
 	
 	@Test
@@ -38,6 +38,6 @@ public class PicturePathConverterTest {
 		 String pictureURL = PicturePathConverter.getInstance().picturePathWithFileServer("http://baidu.com/group/zz/hello.png");
 		
 		//Then
-		assertThat(pictureURL).isIn("http://47.96.166.81:8888/group/zz/hello.png","http://116.62.71.222:8888/group/zz/hello.png");
+		assertThat(pictureURL).isIn("http://xxx1:8888/group/zz/hello.png","http://xxx2:8888/group/zz/hello.png");
 	}
 }

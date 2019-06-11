@@ -139,7 +139,7 @@ app:
 role:
   users: 
     - 
-      #管理员(合伙人)
+      #管理员
       role: ROLE_MANAGER
       user: manager
       password: 12345678@test
@@ -153,11 +153,6 @@ role:
       role: ROLE_GUEST
       user: guest
       password: 12345678@test
-
-file:
-  server: http://47.96.166.81:8888/
-  watermark-server: http://47.96.166.81:8877/
-  tmp-delete: false
 
 fdfs:
   so-timeout: 1501
