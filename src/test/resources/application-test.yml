@@ -134,7 +134,7 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.hptiger.starter.queue.RedisMessageMailSubscriber
+          - com.hptiger.starter.queue.pub.RedisMessageMailSubscriber
 
 role:
   users: 

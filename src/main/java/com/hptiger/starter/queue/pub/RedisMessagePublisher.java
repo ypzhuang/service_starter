@@ -4,7 +4,7 @@
  * RedisMessagePublisher 功能描述
  */
 
-package com.hptiger.starter.queue;
+package com.hptiger.starter.queue.pub;
 
 import java.io.Serializable;
 
@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Component;
+
+import com.hptiger.starter.queue.MessagePublisher;
+import com.hptiger.starter.queue.msg.ValidationCodeMessage;
 
 
 @Component
@@ -23,12 +26,11 @@ public class RedisMessagePublisher implements MessagePublisher {
 	private ChannelTopic topic;
 
 	public RedisMessagePublisher() {		
-		this(QUEUE_VALIDATION_CODE);
+		this(ValidationCodeMessage.QUEUE_VALIDATION_CODE);
 	}
 
-	public RedisMessagePublisher(String topic) {
-		// this.redisTemplate =   SpringContextBridge.services().getService("redisTemplate", RedisTemplate.class);
-		this.setTopic(QUEUE_VALIDATION_CODE);
+	public RedisMessagePublisher(String topic) {		
+		this.setTopic(ValidationCodeMessage.QUEUE_VALIDATION_CODE);
 	}
 	
 	@Override

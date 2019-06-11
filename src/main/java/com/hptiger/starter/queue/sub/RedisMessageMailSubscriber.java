@@ -1,13 +1,14 @@
 /**
  * created Mar 1, 2019 by ypzhuang
  * 
- * TODO 功能描述
+ * RedisMessageMailSubscriber
  */
 
-package com.hptiger.starter.queue;
+package com.hptiger.starter.queue.sub;
 
 import com.hptiger.starter.utils.RedisHelper;
 import com.hptiger.starter.context.SpringContextBridge;
+import com.hptiger.starter.queue.msg.ValidationCodeMessage;
 import com.hptiger.starter.service.IMailService;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class RedisMessageMailSubscriber implements MessageListener {
 		RedisTemplate<String, Object> redisTemplate=  SpringContextBridge.services().getService("redisTemplate", RedisTemplate.class);
 		Object obj = redisTemplate.getValueSerializer().deserialize(message.getBody());
 		
-		if(MessagePublisher.QUEUE_VALIDATION_CODE.equals(channel)) {			
+		if(ValidationCodeMessage.QUEUE_VALIDATION_CODE.equals(channel)) {			
 			if(obj instanceof ValidationCodeMessage) {
 				ValidationCodeMessage msg = (ValidationCodeMessage)obj;				
 				mailService.sendTemplateMessage(to(msg.getTo()), "验证码", msg.getTemplate(), msg.getParams());				

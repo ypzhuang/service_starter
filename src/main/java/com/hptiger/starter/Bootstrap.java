@@ -26,10 +26,6 @@ import java.util.Arrays;
 public class Bootstrap {
 	private static final Logger log = LoggerFactory.getLogger(Bootstrap.class);
 	
-    @PostConstruct
-    public void postConstruct() {
-    }
-
     @Autowired
     private IUserService userService;
     
@@ -45,17 +41,21 @@ public class Bootstrap {
 	@PostConstruct
 	public void bootstrap() {
 		log.info("bootstrap in a product env? {}",isProd());
-		initUserAndRole();
+		initRoles();
+		initUsers();
 		if(!isProd()) {
 			mockApp();
 		}
 	}
 
-	private void mockApp() {
-		appService.mockApp();		
+	
+	private void initRoles() {
+		for(AuthorityName name : AuthorityName.values()) {
+			authorityService.getOrCreateAuthorityByName(name);
+		}
 	}
 
-	private void initUserAndRole() {
+	private void initUsers() {
 		log.info("bootstrap user accounts");
 		initUserConfig.getUsers().stream().forEach(u -> {
 			log.info("init user: {}",u);
@@ -67,13 +67,17 @@ public class Bootstrap {
 				user.setUsername(u.getUser());
 				user.setPassword(new BCryptPasswordEncoder().encode(u.getPassword()));
 				user.setName(u.getUser());
-				user.setEmail(u.getUser()+"@hp.com");
+				user.setEmail(u.getUser()+"@hptiger.com");
 				user.setEnabled(true);
 				user.setLastPasswordResetDate(LocalDateTime.now());
 				user.setAuthorities(Arrays.asList(authority));
 				userService.saveUser(user);
 			}
 		});		
+	}
+	
+	private void mockApp() {
+		appService.mockApp();		
 	}
 	
 	

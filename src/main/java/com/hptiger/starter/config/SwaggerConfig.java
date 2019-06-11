@@ -19,8 +19,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.google.common.base.Predicate;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.*;
@@ -55,14 +53,14 @@ public class SwaggerConfig {
 				);
 	}
 
-	private Predicate<String> businessOnlyEndpoints() {
-		return new Predicate<String>() {
-			@Override
-			public boolean apply(String input) {
-				return !input.contains("error");
-			}
-		};
-	}
+//	private Predicate<String> businessOnlyEndpoints() {
+//		return new Predicate<String>() {
+//			@Override
+//			public boolean apply(String input) {
+//				return !input.contains("error");
+//			}
+//		};
+//	}
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
