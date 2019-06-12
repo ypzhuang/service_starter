@@ -49,6 +49,7 @@ public class AppMessageServiceImpl extends ServiceImpl<AppMessageMapper, AppMess
 		return message;
 	}
 
+	@Transactional
 	@Override
 	public AppMessage saveSMSMessage(String appId, SMSMessageVO messageVO) {
 		// TODO Auto-generated method stub
