@@ -1,5 +1,6 @@
 .gradle
 db
+rocketmq-docker
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 

@@ -10,4 +10,5 @@ import java.io.Serializable;
 
 public interface MessagePublisher {
 	void publish(Serializable message);
+	void publish(String topic, Serializable message);
 }

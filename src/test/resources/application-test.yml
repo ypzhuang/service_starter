@@ -48,6 +48,7 @@ spring:
         password: 12345678
         driver-class-name: com.mysql.jdbc.Driver
         schema: classpath:schema.sql
+        data: classpath:init.sql,classpath:mock.sql
     redis:
       database: 0
       host: localhost
@@ -91,7 +92,7 @@ logging:
         web: INFO
         security: INFO
     com:
-      hp: DEBUG
+      hptiger: DEBUG
  
 app:
   defaultPassword: 12345678
@@ -134,7 +135,7 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.hptiger.starter.queue.pub.RedisMessageMailSubscriber
+          - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
 
 role:
   users: 
@@ -153,7 +154,10 @@ role:
       role: ROLE_GUEST
       user: guest
       password: 12345678@test
-
+      
+file:
+  tmp-delete: false
+  
 fdfs:
   so-timeout: 1501
   connect-timeout: 601
@@ -162,3 +166,14 @@ fdfs:
     height: 150
   tracker-list:
     - 172.16.177.88:22122
+    
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: starter
+    send-message-timeout: 3000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-times-when-send-async-failed: 2
+    retry-next-server: true
+    retry-times-when-send-failed: 2
