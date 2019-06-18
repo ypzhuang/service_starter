@@ -182,7 +182,18 @@ management:
     web:
       exposure:
         include: "*"
-        
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: starter
+    send-message-timeout: 3000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-times-when-send-async-failed: 2
+    retry-next-server: true
+    retry-times-when-send-failed: 2
+
 ---
 spring:
     profiles: prod
@@ -262,7 +273,18 @@ fdfs:
   tracker-list:
     - 172.16.177.88:22122
     - 172.16.44.46:22122 
-  
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: starter
+    send-message-timeout: 3000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-times-when-send-async-failed: 2
+    retry-next-server: true
+    retry-times-when-send-failed: 2
+
 --- 
 spring:
     profiles: test1   
@@ -341,3 +363,14 @@ fdfs:
   tracker-list:
     - 172.16.177.88:22122
     - 172.16.44.46:22122
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: starter
+    send-message-timeout: 3000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-times-when-send-async-failed: 2
+    retry-next-server: true
+    retry-times-when-send-failed: 2

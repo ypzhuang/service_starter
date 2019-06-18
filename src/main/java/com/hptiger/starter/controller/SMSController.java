@@ -12,6 +12,7 @@ import java.util.Map;
 import com.hptiger.starter.context.SpringContextBridge;
 import com.hptiger.starter.service.impl.aliyun.SMSService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ import io.swagger.annotations.ApiParam;
 public class SMSController extends BaseController {
 	
 	@Autowired
+	@Qualifier("redis")
 	MessagePublisher redisPublisher;
 	
 	@GetMapping("/login")

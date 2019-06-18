@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 import com.hptiger.starter.queue.MessagePublisher;
 import com.hptiger.starter.queue.msg.ValidationCodeMessage;
 
-
-@Component
+@Component("redis")
 public class RedisMessagePublisher implements MessagePublisher {
 	
 	@Autowired
@@ -30,7 +29,7 @@ public class RedisMessagePublisher implements MessagePublisher {
 	}
 
 	public RedisMessagePublisher(String topic) {		
-		this.setTopic(ValidationCodeMessage.QUEUE_VALIDATION_CODE);
+		this.setTopic(topic);
 	}
 	
 	@Override
@@ -43,6 +42,11 @@ public class RedisMessagePublisher implements MessagePublisher {
 	}
 
 	private void setTopic(String topic) {
-		this.topic = new ChannelTopic(topic);;
+		this.topic = new ChannelTopic(topic);
+	}
+
+	@Override
+	public void publish(String topic, Serializable message) {		
+		redisTemplate.convertAndSend(topic, message);		
 	}
 }
