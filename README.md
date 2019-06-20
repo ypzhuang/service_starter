@@ -1,4 +1,4 @@
-
+# A simple version for starter without spring security, aliyun client, fastdfs,wechat api
 ## Prerequisite
 * Oracle JDK 1.8+
 * MySQL 5.7

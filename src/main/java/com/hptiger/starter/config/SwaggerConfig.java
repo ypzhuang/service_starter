@@ -33,49 +33,7 @@ public class SwaggerConfig {
 	@Value("${spring.application.name}")
 	private String applicationName;
 	
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("API Service")
-				.apiInfo(apiInfo())
-				.select()
-				.paths(PathSelectors.ant("/api/**"))
-				.build()
-				.securitySchemes(newArrayList(apiKey()))
-				.tags(
-						new Tag("File","文件服务器"),						
-						new Tag("Home","Home"),						
-						new Tag("SMS","短信服务"),
-						new Tag("Auth","认证"),
-						new Tag("Dict","数据字典"),
-						new Tag("App","App密钥"),
-						new Tag("Message","消息")
-				);
-	}
 
-//	private Predicate<String> businessOnlyEndpoints() {
-//		return new Predicate<String>() {
-//			@Override
-//			public boolean apply(String input) {
-//				return !input.contains("error");
-//			}
-//		};
-//	}
-
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title(applicationName + " Service API Online")
-				.description(apiChangeHistory("app_api_changehistory.md"))
-				.contact(new Contact("John Zhuang", "", "yinping.zhuang@hp.com"))
-				.version("1.0.0-SNAPSHOT")
-				.build();
-	}
-
-	@Bean
-    SecurityScheme apiKey() {
-		return new ApiKey("token", "Authorization", "header");
-	}
-	
 	private String apiChangeHistory(String fileName) {	
 		InputStream input;
 		try {

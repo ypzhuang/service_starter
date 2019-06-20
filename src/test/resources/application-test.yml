@@ -75,15 +75,7 @@ spring:
             writetimeout: 5000
             debug: true
         nickName: 小二
-  
-jwt:
-  header: Authorization
-  secret: hellosecrettest
-  expiration: 259200
-  route:
-    authentication:
-      path: login
-      refresh: refresh
+
 
 logging:
   level:   
@@ -95,41 +87,6 @@ logging:
       hptiger: DEBUG
  
 app:
-  defaultPassword: 12345678
-  mini:
-    appId: wx209e977d979fe4cf
-    appSecret: 749dda22168af8c9ee557f0ea6087393
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  aliyun:
-    aliyun-configs:
-      - 
-        tenent-code: ORG10001         
-        access-key-id: LTAIhF7Jr6UCZqTU
-        access-secret: uk4fqYHKse0KYnMkBhf7FFWfTiNoaT        
-        sms-config:
-          sign-name:  虎虎研发
-          mock: true
-          templates:
-            - 
-              template-name: login
-              template-code: SMS_9666237
-            - 
-              template-name: check
-              template-code: SMS_9666237
-      - 
-        tenent-code: ORG10002         
-        access-key-id: zzz
-        access-secret: zzzz
-        sms-config:
-          sign-name:  莫库什勒信息科技
-          mock: true
-          templates:
-            - 
-              template-name: login
-              template-code: SMS_9666237
-            - 
-              template-name: check
-              template-code: SMS_9666237
   queue:
     queues:
       -
@@ -137,36 +94,9 @@ app:
         subscribers:
           - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
 
-role:
-  users: 
-    - 
-      #管理员
-      role: ROLE_MANAGER
-      user: manager
-      password: 12345678@test
-    -
-      #超级管理员
-      role: ROLE_SUPER_ADMIN
-      user: superAdmin
-      password: 12345678@test  
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
-      password: 12345678@test
-      
 file:
   tmp-delete: false
-  
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150
-  tracker-list:
-    - 172.16.177.88:22122
-    
+
 rocketmq:
   name-server: 127.0.0.1:9876
   producer:

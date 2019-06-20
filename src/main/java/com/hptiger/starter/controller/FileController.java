@@ -8,7 +8,7 @@ package com.hptiger.starter.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +24,9 @@ import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@RequestMapping("/api/v1/files")
+@RequestMapping("/app/v1/files")
 @Api(tags = {"File"})
-@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
+
 public class FileController extends BaseController {
 	 
 	@Autowired

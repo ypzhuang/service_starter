@@ -31,10 +31,6 @@ public class Application {
 						.allowedHeaders("*")
 						.allowedMethods("*")
 						.allowedOrigins("*");
-				registry.addMapping("/app/**")
-						.allowedHeaders("*")
-						.allowedMethods("*")
-						.allowedOrigins("*");
 			}
 		};
 	}

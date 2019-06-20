@@ -13,7 +13,6 @@ public class Scheduler {
 	@Scheduled(cron = "0 0/5 * * * ?")
 	public void updateOrderStaticsForUsers() {
 		log.debug("I'm a scheduler.");
-		
 
 	}
 }

@@ -19,8 +19,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.aliyuncs.utils.StringUtils;
-import com.hptiger.starter.service.IAppService;
+import  org.apache.commons.lang3.StringUtils;
+
 
 public class AppAuthInterceptor extends HandlerInterceptorAdapter {
 	protected  final Logger log = LoggerFactory.getLogger(getClass());
@@ -37,8 +37,7 @@ public class AppAuthInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 	
-	@Autowired
-	private IAppService appService;
+
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -47,6 +46,7 @@ public class AppAuthInterceptor extends HandlerInterceptorAdapter {
 		String appSecurity = request.getHeader(appSecurityHeader);
 		log.info("AppID:{} request {} {}  ...", appId, request.getMethod(), request.getRequestURI());
 		
+
 		if(StringUtils.isEmpty(appId) || StringUtils.isEmpty(appSecurity)) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, String.format("Headers: %s and %s shouldn't be null.", appIdHeader,appSecurityHeader));
 			return false;
@@ -68,7 +68,7 @@ public class AppAuthInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	private boolean validate(String appId, String appSecurity) {
-		return appService.getApp(appId, appSecurity) != null;	
+		return true;
 	}
 	
 	@Override

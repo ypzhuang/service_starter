@@ -6,10 +6,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -58,29 +54,8 @@ public class BaseController {
     @ExceptionHandler(ApplicationException.class)
     public ErrorResponse exception(ApplicationException e) {
         return new ErrorResponse(e.getMessage());
-    }   
-    
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UsernameNotFoundException.class)
-    public ErrorResponse exception(UsernameNotFoundException e) {
-        log.error("用户名或密码错误。");
-        return new ErrorResponse("用户名或密码错误。");
     }
-    
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BadCredentialsException.class)
-    public ErrorResponse exception(BadCredentialsException e) {
-        log.error("用户名或密码错误。");
-        return new ErrorResponse("用户名或密码错误。");
-    }
-    
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(DisabledException.class)
-    public ErrorResponse exception(DisabledException e) {
-        log.error(e.getMessage(),e);
-        return new ErrorResponse(e.getMessage());
-    }
-    
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse exception(MethodArgumentNotValidException e) {
@@ -100,13 +75,6 @@ public class BaseController {
     	return e.getBindingResult().getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
     }
     
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();;
-   
-    
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(AccessDeniedException.class)
-    public ErrorResponse exception(AccessDeniedException e) {
-    	log.error("Access Denied Exception:{}",e);  
-        return new ErrorResponse("无权限访问!");
-    }   
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 }

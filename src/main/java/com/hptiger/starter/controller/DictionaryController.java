@@ -9,7 +9,6 @@ import com.hptiger.starter.service.IDictionaryService;
 import org.apache.http.util.Asserts;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +37,8 @@ import io.swagger.annotations.ApiParam;
  * @since 2019-01-03
  */
 @RestController
-@RequestMapping("/api/v1/dicts")
+@RequestMapping("/app/v1/dicts")
 @Api(tags = {"Dict"})
-@PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_MANAGER')")
 public class DictionaryController extends BaseController {
 	
 	@Autowired

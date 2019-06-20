@@ -83,17 +83,7 @@ spring:
             writetimeout: 5000
             debug: true
         nickName: 小二
-    
-jwt:
-  header: Authorization
-  secret: hellosecret
-  expiration: 259200
-  route:
-    authentication:
-      path: login
-      refresh: refresh    
 
-  
 logging:
   level:   
     org:
@@ -102,81 +92,21 @@ logging:
         security: INFO
         transaction: TRACE
     com:
-      bdease: DEBUG
+      hptiger: DEBUG
 
 app:
-  defaultPassword: 12345678
-  mini:
-    appId: weixinAPPID
-    appSecret: weixinAPPSecret
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  aliyun:
-    aliyun-configs:
-      - 
-        tenent-code: ORG10001         
-        access-key-id: ali access key id
-        access-secret: ali access secret        
-        sms-config:
-          sign-name:  虎虎研发
-          templates:
-            - 
-              template-name: login
-              template-code: SMS_9666237
-            - 
-              template-name: check
-              template-code: SMS_9666237
-      - 
-        tenent-code: ORG10002         
-        access-key-id: zzz
-        access-secret: zzzz
-        sms-config:
-          sign-name:  莫库什勒信息科技          
-          templates:
-            - 
-              template-name: login
-              template-code: SMS_9666237
-            - 
-              template-name: check
-              template-code: SMS_9666237
   queue:
     queues:
       -
         queue_name: queue:validation_code
         subscribers:
           - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
-          - com.hptiger.starter.queue.sub.RedisMessageSMSSubscriber
 
-    
-role:
-  users:
-    - 
-      #管理员
-      role: ROLE_MANAGER
-      user: manager
-      password: 12345678
-    -
-      #超级管理员
-      role: ROLE_SUPER_ADMIN
-      user: superAdmin
-      password: 12345678
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
-      password: 12345678
 
 file:
   tmp-delete: false
 
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150
-  tracker-list:
-    - 172.16.177.88:22122
-      
+
 management:
   endpoints:
     web:
@@ -216,16 +146,7 @@ spring:
           max-idle: 8
           min-idle: 0
         shutdown-timeout: 200ms
-  
-jwt:
-  header: Authorization
-  secret: hellosecret
-  expiration: 259200
-  route:
-    authentication:
-      path: login
-      refresh: refresh
-    
+
 
 logging:
   level:   
@@ -234,45 +155,16 @@ logging:
         web: INFO
         security: INFO
     com:
-      hp: INFO
+      hptiger: INFO
       
 app:
-  defaultPassword: 1q2w3e4r5T
-  mini:
-    appId: wechat app id
-    appSecret: wechat app secret
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
+  queue:
+    queues:
+      -
+        queue_name: queue:validation_code
+        subscribers:
+          - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
 
-role:
-  users:
-    - 
-      #管理员
-      role: ROLE_MANAGER
-      user: manager
-      password: 12345678@prod
-    -
-      #超级管理员
-      role: ROLE_SUPER_ADMIN
-      user: superAdmin
-      password: 12345678@prod
-    -
-      #客人
-      role: ROLE_GUEST
-      user: guest
-      password: 12345678@prod
-
-file:
-  tmp-delete: false
-
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150
-  tracker-list:
-    - 172.16.177.88:22122
-    - 172.16.44.46:22122 
 
 rocketmq:
   name-server: 127.0.0.1:9876
@@ -308,14 +200,6 @@ spring:
           min-idle: 0
         shutdown-timeout: 200ms
   
-jwt:
-  header: Authorization
-  secret: hellosecret
-  expiration: 259200
-  route:
-    authentication:
-      path: login
-      refresh: refresh
 
 logging:
   level:   
@@ -324,45 +208,12 @@ logging:
         web: INFO
         security: INFO
     com:
-      shuyun365: DEBUG
+      hptiger: DEBUG
 
-app:
-  defaultPassword: 12345678
-  mini:
-    appId: wechat app id
-    appSecret: wechat app secret
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-        
-role:
-  users:
-    - 
-      #管理员
-      role: ROLE_MANAGER
-      user: manager
-      password: 12345678@test1
-    -
-      #客户
-      role: ROLE_GUEST
-      user: guest
-      password: 12345678@test1
-    -
-      #超级管理员
-      role: ROLE_SUPER_ADMIN
-      user: superAdmin
-      password: 12345678@test1
 
 file:
   tmp-delete: false
 
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150  
-  tracker-list:
-    - 172.16.177.88:22122
-    - 172.16.44.46:22122
 
 rocketmq:
   name-server: 127.0.0.1:9876

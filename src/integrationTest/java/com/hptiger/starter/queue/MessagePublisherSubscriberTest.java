@@ -12,7 +12,6 @@ import java.util.Map;
 import com.hptiger.starter.utils.NumberHelper;
 import com.hptiger.starter.context.SpringContextBridge;
 import com.hptiger.starter.queue.msg.ValidationCodeMessage;
-import com.hptiger.starter.service.impl.aliyun.SMSService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,8 +46,6 @@ public class MessagePublisherSubscriberTest {
 		} catch (InterruptedException e) {			
 			e.printStackTrace();
 		}
-    	
-    	SMSService smsService = SpringContextBridge.services().getService("ORG10001", SMSService.class);
-    	Assert.assertTrue(smsService.validateCode("13816991878",code));
+
 	}
 }
