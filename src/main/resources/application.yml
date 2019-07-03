@@ -145,8 +145,21 @@ app:
         subscribers:
           - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
           - com.hptiger.starter.queue.sub.RedisMessageSMSSubscriber
+  mqtt:
+    mqttUser: ~
+    mqttPassword: ~
+    certPath: ~/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    mqttServers:
+      - ssl://u1.hp.com:8884
 
-    
 role:
   users:
     - 
@@ -242,7 +255,21 @@ app:
     appId: wechat app id
     appSecret: wechat app secret
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-
+  mqtt:
+    mqttUser: ~
+    mqttPassword: ~
+    certPath: ~/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    mqttServers:
+      - ssl://u1.hp.com:8884
+      
 role:
   users:
     - 
@@ -332,7 +359,21 @@ app:
     appId: wechat app id
     appSecret: wechat app secret
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-        
+  mqtt:
+    mqttUser: ~
+    mqttPassword: ~
+    certPath: ~/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    mqttServers:
+      - ssl://u1.hp.com:8884
+              
 role:
   users:
     - 

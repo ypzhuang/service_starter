@@ -113,8 +113,8 @@ dependencies {
 	compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '4.0.3'
 	compile 'commons-validator:commons-validator:1.6'
 	compile group: 'com.github.javafaker', name: 'javafaker', version: '0.18'
-	compile('org.apache.rocketmq:rocketmq-spring-boot-starter:2.0.3')   
-	
+	compile('org.apache.rocketmq:rocketmq-spring-boot-starter:2.0.3') 	
+	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.1'
 }
 
 compileJava.dependsOn(processResources)
