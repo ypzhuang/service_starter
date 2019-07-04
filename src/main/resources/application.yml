@@ -100,8 +100,40 @@ app:
       -
         queue_name: queue:validation_code
         subscribers:
-          - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
+          - com.hptiger.starter.queue.sub.RedisMessageSMSSubscriber
+  mqtt:
+    mqttDefaultUser: ~
+    mqttDefaultPassword: ~
+    certPath: /Users/yinping/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    lastWillTopic: "print/lastwill/%s"
+    mqttServers:
+      - ssl://u1.hp.com:8884
 
+role:
+  users:
+    - 
+      #管理员
+      role: ROLE_MANAGER
+      user: manager
+      password: 12345678
+    -
+      #超级管理员
+      role: ROLE_SUPER_ADMIN
+      user: superAdmin
+      password: 12345678
+    -
+      #客人
+      role: ROLE_GUEST
+      user: guest
+      password: 12345678
 
 file:
   tmp-delete: false
@@ -164,7 +196,47 @@ app:
         queue_name: queue:validation_code
         subscribers:
           - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
+  defaultPassword: 1q2w3e4r5T
+  mini:
+    appId: wechat app id
+    appSecret: wechat app secret
+    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
+  mqtt:
+    mqttDefaultUser: ~
+    mqttDefaultPassword: ~
+    certPath: /Users/yinping/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    lastWillTopic: "print/lastwill/%s"
+    mqttServers:
+      - ssl://u1.hp.com:8884
+      
+role:
+  users:
+    - 
+      #管理员
+      role: ROLE_MANAGER
+      user: manager
+      password: 12345678@prod
+    -
+      #超级管理员
+      role: ROLE_SUPER_ADMIN
+      user: superAdmin
+      password: 12345678@prod
+    -
+      #客人
+      role: ROLE_GUEST
+      user: guest
+      password: 12345678@prod
 
+file:
+  tmp-delete: false
 
 rocketmq:
   name-server: 127.0.0.1:9876
@@ -210,6 +282,47 @@ logging:
     com:
       hptiger: DEBUG
 
+app:
+  defaultPassword: 12345678
+  mini:
+    appId: wechat app id
+    appSecret: wechat app secret
+    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
+  mqtt:
+    mqttDefaultUser: ~
+    mqttDefaultPassword: ~
+    mqttDefaultSubTopic: "cmd/%s"
+    mqttDefaultPubTopic: "print/%s"
+    certPath: /Users/yinping/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    lastWillTopic: "print/lastwill/%s"
+    mqttServers:
+      - ssl://u1.hp.com:8884
+              
+role:
+  users:
+    - 
+      #管理员
+      role: ROLE_MANAGER
+      user: manager
+      password: 12345678@test1
+    -
+      #客户
+      role: ROLE_GUEST
+      user: guest
+      password: 12345678@test1
+    -
+      #超级管理员
+      role: ROLE_SUPER_ADMIN
+      user: superAdmin
+      password: 12345678@test1
 
 file:
   tmp-delete: false

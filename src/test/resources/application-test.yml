@@ -93,6 +93,21 @@ app:
         queue_name: queue:validation_code
         subscribers:
           - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
+  mqtt:
+    mqttDefaultUser: ~
+    mqttDefaultPassword: ~
+    certPath: /Users/yinping/work/vm/cluster/cert
+    caFilePath: ${app.mqtt.certPath}/root/root.crt
+    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
+    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
+    clientCrtFilePasswod: ~
+    clientId: ~
+    cleanSession: true
+    connectionTimeoutInSeconds: 30
+    keepAliveIntervalInSeconds: 50
+    lastWillTopic: "print/lastwill/%s"
+    mqttServers:
+      - ssl://u1.hp.com:8884
 
 file:
   tmp-delete: false
