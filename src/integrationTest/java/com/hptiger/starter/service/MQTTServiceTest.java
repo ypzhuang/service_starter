@@ -6,7 +6,6 @@
 
 package com.hptiger.starter.service;
 
-
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.After;
@@ -19,14 +18,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-
 import com.hptiger.starter.mqtt.MqttHandler;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @SpringBootTest
 public class MQTTServiceTest {
-
 	@Autowired
 	MqttHandler handler;
 	
@@ -39,28 +36,9 @@ public class MQTTServiceTest {
 	public void teardown() {
 		this.handler.close();
 	}
-	
-	@Test
-	public void testPublishMQTTMessage() throws Exception {
-		for (int i = 0; i < 3; i++) {
-			handler.publishMessage("hello", "this is the world " + i, 2);
-			Thread.sleep(1000L);
-		}		
-	}
 
 	@Test
-	public void testSubscribeMQTTMessage() throws Exception {
-		handler.subscribeTopic("hello");
-
-		for (int i = 0; i < 10; i++) {
-			handler.publishMessage("hello", "this is the world " + i);
-			Thread.sleep(500L);
-		}
-		handler.unsubscribeTopic("hello");		
-	}
-	
-	@Test
-	public void testUserNameAndPasswordConnection() throws Exception {
+	public void testUserNameAndPasswordConnection() throws Exception {		
 		handler.setMqttUser("Me");
 		handler.setMqttPassword("1234567");
 		handler.setClientId("hello-client");
@@ -71,7 +49,7 @@ public class MQTTServiceTest {
 				Assert.assertEquals("hello-c",new String(message.getPayload()));				
 			}			
 		});
-		Thread.sleep(30000L);
+		Thread.sleep(5000L);
 		handler.publishMessage("hello-world", "hello-c");		
 	}
 }

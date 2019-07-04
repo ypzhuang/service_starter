@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.hptiger.starter.config.MQTTConfiguration;
 import com.mysql.jdbc.StringUtils;
 
@@ -39,8 +40,8 @@ public class MqttHandler {
 	
 	@PostConstruct
 	public void init() {
-		this.mqttUser = config.getMqttUser();
-		this.mqttPassword = config.getMqttPassword();
+		this.mqttUser = config.getMqttDefaultUser();
+		this.mqttPassword = config.getMqttDefaultPassword();
 		this.clientId = config.getClientId();
 	}
 
@@ -73,13 +74,6 @@ public class MqttHandler {
 		if (this.mqttClient == null) {
 			return this.connect();
 		}
-		if (!this.mqttClient.isConnected()) {
-			try {
-				this.mqttClient.reconnect();
-			} catch (MqttException e) {
-				log.error("reconnect error",e);					
-			}
-		}
 		return this.mqttClient;
 	}
 
@@ -92,6 +86,24 @@ public class MqttHandler {
 	
 	public String getMQTTServer() {
 		return this.config.getMqttServers().get(0);		
+	}
+	
+	public String getLastWillTopic() {
+		String topic = String.format(this.config.getLastWillTopic(), getClientId());
+		log.debug("last will topic: {}",topic);	
+		return topic;
+	}
+	
+	public String getDefaultPubTopic() {
+		String topic = String.format(this.config.getMqttDefaultPubTopic(), getClientId());
+		log.debug("default pub topic: {}",topic);	
+		return topic;
+	}
+	
+	public String getDefaultSubTopic() {
+		String topic = String.format(this.config.getMqttDefaultSubTopic(), getClientId());
+		log.debug("default sub topic: {}",topic);	
+		return topic;
 	}
 
 	public MqttClient connect(){
@@ -107,6 +119,7 @@ public class MqttHandler {
 			connOpts.setConnectionTimeout(config.connectionTimeoutInSeconds);
 			connOpts.setKeepAliveInterval(config.keepAliveIntervalInSeconds);
 			connOpts.setSocketFactory(SslUtil.getSocketFactory(config.caFilePath, config.clientCrtFilePath, config.clientKeyFilePath, config.clientCrtFilePasswod));			
+			connOpts.setWill(this.getLastWillTopic(), this.getLastWillMessge(), 1, false);
 			this.mqttClient.connect(connOpts);
 			log.debug("mqtt connected");
 
@@ -117,6 +130,15 @@ public class MqttHandler {
 		}
 		return this.mqttClient;
 	}
+	
+	public byte[] getLastWillMessge() {
+		Gson gson = new Gson();
+		LastWillMessage msg = new LastWillMessage();
+		msg.setDeviceId(this.getClientId());
+		String strMsg = gson.toJson(msg);
+		return strMsg.getBytes(Charset.forName("UTF-8"));		
+	}	
+
 
 	public void publishMessage(String topic, String content, int qos) throws Exception {
 		MqttMessage message = new MqttMessage(content.getBytes(Charset.forName("UTF-8")));
@@ -127,6 +149,10 @@ public class MqttHandler {
 
 	public void publishMessage(String topic, String content) throws Exception {
 		this.publishMessage(topic, content, 1);
+	}
+	
+	public void publishMessage(String content) throws Exception {		
+		this.publishMessage(getDefaultPubTopic(), content, 1);
 	}
 
 	public void subscribeTopic(String topicFilter) {
@@ -146,6 +172,10 @@ public class MqttHandler {
 		} catch (MqttException me) {
 			log.error("error to subscribe topic: " + topicFilter, me);
 		}
+	}
+	
+	public void subscribeTopic(IMqttMessageListener listener) {
+		this.subscribeTopic(getDefaultSubTopic(), listener);
 	}
 
 	public void unsubscribeTopic(String topicFilter) {

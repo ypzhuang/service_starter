@@ -19,8 +19,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MQTTConfiguration {
-	String mqttUser;
-	String mqttPassword;
+	String mqttDefaultUser;
+	String mqttDefaultPassword;
+    
+	String lastWillTopic;
+	
+	String mqttDefaultSubTopic;
+	String mqttDefaultPubTopic;
+	    	
 	public String certPath;
 	public String caFilePath;
 	public String clientCrtFilePath;
@@ -30,5 +36,6 @@ public class MQTTConfiguration {
 	public Integer connectionTimeoutInSeconds;
 	public Integer keepAliveIntervalInSeconds;
 	public Boolean cleanSession;
+	
 	List<String> mqttServers;
 }
