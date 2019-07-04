@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hptiger.starter.utils.NumberHelper;
-import com.hptiger.starter.context.SpringContextBridge;
 import com.hptiger.starter.queue.msg.ValidationCodeMessage;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

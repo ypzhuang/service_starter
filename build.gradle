@@ -96,7 +96,8 @@ dependencies {
 	compile("com.baomidou:mybatis-plus:${myBatisPlusVersion}")
 	compile("com.baomidou:mybatis-plus-generator:${myBatisPlusVersion}")
     compile('org.springframework.boot:spring-boot-starter-freemarker')
-    compile('org.projectlombok:lombok:1.18.4')    
+    compile('org.projectlombok:lombok:1.18.4')
+    implementation 'org.bouncycastle:bcprov-jdk16:1.46'    
     compile('commons-io:commons-io:2.6')
     compile('org.json:json:20180813')
 
