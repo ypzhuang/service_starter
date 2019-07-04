@@ -148,6 +148,9 @@ app:
   mqtt:
     mqttDefaultUser: ~
     mqttDefaultPassword: ~
+    mqttDefaultSubTopic: "cmd/%s"
+    mqttDefaultPubTopic: "print/%s"
+    ssl: true
     certPath: /Users/yinping/work/vm/cluster/cert
     caFilePath: ${app.mqtt.certPath}/root/root.crt
     clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
@@ -259,6 +262,9 @@ app:
   mqtt:
     mqttDefaultUser: ~
     mqttDefaultPassword: ~
+    mqttDefaultSubTopic: "cmd/%s"
+    mqttDefaultPubTopic: "print/%s"
+    ssl: true
     certPath: /Users/yinping/work/vm/cluster/cert
     caFilePath: ${app.mqtt.certPath}/root/root.crt
     clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
@@ -366,6 +372,7 @@ app:
     mqttDefaultPassword: ~
     mqttDefaultSubTopic: "cmd/%s"
     mqttDefaultPubTopic: "print/%s"
+    ssl: true
     certPath: /Users/yinping/work/vm/cluster/cert
     caFilePath: ${app.mqtt.certPath}/root/root.crt
     clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt

@@ -26,6 +26,8 @@ public class MQTTConfiguration {
 	
 	String mqttDefaultSubTopic;
 	String mqttDefaultPubTopic;
+	
+	private Boolean ssl;
 	    	
 	public String certPath;
 	public String caFilePath;
