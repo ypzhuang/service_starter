@@ -118,7 +118,9 @@ public class MqttHandler {
 			connOpts.setPassword(this.getMqttPassword().toCharArray());
 			connOpts.setConnectionTimeout(config.connectionTimeoutInSeconds);
 			connOpts.setKeepAliveInterval(config.keepAliveIntervalInSeconds);
-			connOpts.setSocketFactory(SslUtil.getSocketFactory(config.caFilePath, config.clientCrtFilePath, config.clientKeyFilePath, config.clientCrtFilePasswod));			
+			if(this.config.getSsl()) {
+				connOpts.setSocketFactory(SslUtil.getSocketFactory(config.caFilePath, config.clientCrtFilePath, config.clientKeyFilePath, config.clientCrtFilePasswod));
+			}						
 			connOpts.setWill(this.getLastWillTopic(), this.getLastWillMessge(), 1, false);
 			this.mqttClient.connect(connOpts);
 			log.debug("mqtt connected");
