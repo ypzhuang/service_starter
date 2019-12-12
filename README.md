@@ -2,6 +2,7 @@
 ## Prerequisite
 * Oracle JDK 1.8+
 * MySQL 5.7
+* Apache RocketMQ 4.6.0
 * docker && docker-compose
 
 
@@ -10,6 +11,17 @@
 ```
 docker-compose -f db/docker-compose.yml up -d
 ```
+
+## Start Apache RocketMQ 
+
+```
+
+cd rocketmq-all-4.6.0-bin-release
+nohup sh bin/mqnamesrv &
+nohup sh bin/mqbroker -n localhost:9876 &
+
+```
+
 
 ## Start Starter Service
 * start with default  dev profile
@@ -42,6 +54,12 @@ open build/reports/tests/integrationTest/index.html
 ## API Document
 ```
 http://127.0.0.1:8080/swagger-ui.html
+
+POST /api/v1/auth/login
+{
+  "password": "12345678",
+  "username": "superAdmin"
+}
 ```
 
 

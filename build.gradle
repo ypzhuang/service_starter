@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.4.RELEASE'
+		springBootVersion = '2.2.2.RELEASE'
 	}
 	repositories {
 	    maven { url "http://repo.spring.io/libs-milestone" }
@@ -12,8 +12,9 @@ buildscript {
 	}
 }
 
-ext.springMobileVersion = "2.0.0.M2"
-ext.myBatisPlusVersion = "3.0.6"
+
+ext.springMobileVersion = "2.0.0.M3"
+ext.myBatisPlusVersion = "3.1.0"
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -55,7 +56,8 @@ sourceSets {
 task integrationTest(type: Test) {
 
     // So that Gradle knows where the integration test classes are:
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+   
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
 
     // So that Gradle knows which runtime class path to use:
     classpath = sourceSets.integrationTest.runtimeClasspath
@@ -72,7 +74,8 @@ dependencies {
 
     compile('mysql:mysql-connector-java:5.1.47')
 
-    compileOnly('org.projectlombok:lombok:1.16.20')
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
 //	runtime('org.springframework.boot:spring-boot-devtools')
 //	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -98,7 +101,7 @@ dependencies {
 	compile("com.baomidou:mybatis-plus:${myBatisPlusVersion}")
 	compile("com.baomidou:mybatis-plus-generator:${myBatisPlusVersion}")
     compile('org.springframework.boot:spring-boot-starter-freemarker')
-    compile('org.projectlombok:lombok:1.18.4')    
+    
     compile('commons-io:commons-io:2.6')
     compile('org.json:json:20180813')
 	implementation 'com.github.tobato:fastdfs-client:1.26.4'	
