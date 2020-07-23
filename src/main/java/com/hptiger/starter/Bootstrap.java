@@ -6,7 +6,6 @@ import com.hptiger.starter.config.InitUserConfiguration;
 import com.hptiger.starter.entity.Authority;
 import com.hptiger.starter.entity.User;
 import com.hptiger.starter.entity.enums.AuthorityName;
-import com.hptiger.starter.service.IAppService;
 import com.hptiger.starter.service.IAuthorityService;
 import com.hptiger.starter.service.IUserService;
 import org.slf4j.Logger;
@@ -34,9 +33,6 @@ public class Bootstrap {
     
     @Autowired
     private InitUserConfiguration initUserConfig;
-    
-    @Autowired
-    private IAppService appService;
 
 	@PostConstruct
 	public void bootstrap() {
@@ -44,7 +40,7 @@ public class Bootstrap {
 		initRoles();
 		initUsers();
 		if(!isProd()) {
-			mockApp();
+		
 		}
 	}
 
@@ -75,11 +71,7 @@ public class Bootstrap {
 			}
 		});		
 	}
-	
-	private void mockApp() {
-		appService.mockApp();		
-	}
-	
+
 	
     @Autowired
     private Environment environment;

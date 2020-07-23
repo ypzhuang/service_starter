@@ -69,7 +69,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-redis')
-	compile('org.springframework.boot:spring-boot-starter-mail')	
 	compile('org.apache.commons:commons-pool2')
 
     compile('mysql:mysql-connector-java:5.1.47')
@@ -104,7 +103,6 @@ dependencies {
     
     compile('commons-io:commons-io:2.6')
     compile('org.json:json:20180813')
-	implementation 'com.github.tobato:fastdfs-client:1.26.4'	
 	implementation 'org.bouncycastle:bcprov-jdk16:1.46'
 	implementation 'commons-codec:commons-codec:1.4'
 	
@@ -112,12 +110,10 @@ dependencies {
 	compile('ypzhuang:spring-json-view:1.2.0-SNAPSHOT') {
 	   exclude group: 'org.slf4j',module:'slf4j-log4j12'
 	}
-	
-	compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '4.0.3'
+
 	compile 'commons-validator:commons-validator:1.6'
 	compile group: 'com.github.javafaker', name: 'javafaker', version: '0.18'
-	compile('org.apache.rocketmq:rocketmq-spring-boot-starter:2.0.3') 	
-	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.1'
+
 }
 
 compileJava.dependsOn(processResources)

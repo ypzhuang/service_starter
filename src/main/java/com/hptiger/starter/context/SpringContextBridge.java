@@ -6,24 +6,21 @@
 
 package com.hptiger.starter.context;
 
-import java.util.List;
+
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
-import com.hptiger.starter.config.AliyunConfiguration;
-import com.hptiger.starter.service.impl.aliyun.SMSService;
 
 @Component
 @Lazy(false)
@@ -52,20 +49,11 @@ public class SpringContextBridge implements SpringContextBridgedService, Applica
 		return applicationContext.getBean(name,serviceType);	
 	}
 	
-	@Autowired
-	private AliyunConfiguration aliyunConfigs;
+
 	
 	@PostConstruct
-	public void init() {		
-		List<String> orgCodes = aliyunConfigs.getAliyunConfigs()
-				.parallelStream()
-				.map(config -> config.getTenentCode())
-				.collect(Collectors.toList());		
-		for(String orgCode: orgCodes) {		
-			SMSService service =  new SMSService(orgCode);			
-			registerBean(orgCode, SMSService.class, () -> service);	
-			log.debug("initialized sms service for:{}",orgCode);
-		}
+	public void init() {	
+		
 	}
 	
 	

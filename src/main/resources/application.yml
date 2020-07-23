@@ -10,14 +10,6 @@ spring:
 
 server:
   port: 8080
-#  servlet:
-#    context-path: /starter
-
-app_api:
-  header: 
-    appId: AppId
-    appSecurity: AppSecurity
-  cache: 3600
 
 #mybatis
 mybatis-plus:
@@ -69,20 +61,7 @@ spring:
           max-idle: 16
           min-idle: 0
         shutdown-timeout: 200ms
-    mail:
-      host: smtp.exmail.qq.com
-      username: webmaster@hptiger.com
-      password: 1q2w3e4r5t6y7u8i9o)P
-      port: 587
-      properties:
-        mail:
-          smtp:
-            auth: true
-            connectiontimeout: 6000
-            timeout: 5000
-            writetimeout: 5000
-            debug: true
-        nickName: 小二
+
     
 jwt:
   header: Authorization
@@ -106,63 +85,6 @@ logging:
 
 app:
   defaultPassword: 12345678
-  mini:
-    appId: weixinAPPID
-    appSecret: weixinAPPSecret
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  aliyun:
-    aliyun-configs:
-      - 
-        tenent-code: ORG10001         
-        access-key-id: ali access key id
-        access-secret: ali access secret        
-        sms-config:
-          sign-name:  虎虎研发
-          templates:
-            - 
-              template-name: login
-              template-code: SMS_9666237
-            - 
-              template-name: check
-              template-code: SMS_9666237
-      - 
-        tenent-code: ORG10002         
-        access-key-id: zzz
-        access-secret: zzzz
-        sms-config:
-          sign-name:  莫库什勒信息科技          
-          templates:
-            - 
-              template-name: login
-              template-code: SMS_9666237
-            - 
-              template-name: check
-              template-code: SMS_9666237
-  queue:
-    queues:
-      -
-        queue_name: queue:validation_code
-        subscribers:
-          - com.hptiger.starter.queue.sub.RedisMessageMailSubscriber
-          - com.hptiger.starter.queue.sub.RedisMessageSMSSubscriber
-  mqtt:
-    mqttDefaultUser: ~
-    mqttDefaultPassword: ~
-    mqttDefaultSubTopic: "cmd/%s"
-    mqttDefaultPubTopic: "print/%s"
-    ssl: true
-    certPath: /Users/yinping/work/vm/cluster/cert
-    caFilePath: ${app.mqtt.certPath}/root/root.crt
-    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
-    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
-    clientCrtFilePasswod: ~
-    clientId: ~
-    cleanSession: true
-    connectionTimeoutInSeconds: 30
-    keepAliveIntervalInSeconds: 50
-    lastWillTopic: "print/lastwill/%s"
-    mqttServers:
-      - ssl://u1.hp.com:8884
 
 role:
   users:
@@ -182,34 +104,11 @@ role:
       user: guest
       password: 12345678
 
-file:
-  tmp-delete: false
-
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150
-  tracker-list:
-    - 172.16.177.88:22122
-      
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: starter
-    send-message-timeout: 3000
-    compress-message-body-threshold: 4096
-    max-message-size: 4194304
-    retry-times-when-send-async-failed: 2
-    retry-next-server: true
-    retry-times-when-send-failed: 2
 
 ---
 spring:
@@ -255,28 +154,7 @@ logging:
       
 app:
   defaultPassword: 1q2w3e4r5T
-  mini:
-    appId: wechat app id
-    appSecret: wechat app secret
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  mqtt:
-    mqttDefaultUser: ~
-    mqttDefaultPassword: ~
-    mqttDefaultSubTopic: "cmd/%s"
-    mqttDefaultPubTopic: "print/%s"
-    ssl: true
-    certPath: /Users/yinping/work/vm/cluster/cert
-    caFilePath: ${app.mqtt.certPath}/root/root.crt
-    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
-    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
-    clientCrtFilePasswod: ~
-    clientId: ~
-    cleanSession: true
-    connectionTimeoutInSeconds: 30
-    keepAliveIntervalInSeconds: 50
-    lastWillTopic: "print/lastwill/%s"
-    mqttServers:
-      - ssl://u1.hp.com:8884
+
       
 role:
   users:
@@ -296,29 +174,7 @@ role:
       user: guest
       password: 12345678@prod
 
-file:
-  tmp-delete: false
 
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150
-  tracker-list:
-    - 172.16.177.88:22122
-    - 172.16.44.46:22122 
-
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: starter
-    send-message-timeout: 3000
-    compress-message-body-threshold: 4096
-    max-message-size: 4194304
-    retry-times-when-send-async-failed: 2
-    retry-next-server: true
-    retry-times-when-send-failed: 2
 
 --- 
 spring:
@@ -363,29 +219,7 @@ logging:
 
 app:
   defaultPassword: 12345678
-  mini:
-    appId: wechat app id
-    appSecret: wechat app secret
-    loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
-  mqtt:
-    mqttDefaultUser: ~
-    mqttDefaultPassword: ~
-    mqttDefaultSubTopic: "cmd/%s"
-    mqttDefaultPubTopic: "print/%s"
-    ssl: true
-    certPath: /Users/yinping/work/vm/cluster/cert
-    caFilePath: ${app.mqtt.certPath}/root/root.crt
-    clientCrtFilePath: ${app.mqtt.certPath}/client/client.crt
-    clientKeyFilePath: ${app.mqtt.certPath}/client/client.key
-    clientCrtFilePasswod: ~
-    clientId: ~
-    cleanSession: true
-    connectionTimeoutInSeconds: 30
-    keepAliveIntervalInSeconds: 50
-    lastWillTopic: "print/lastwill/%s"
-    mqttServers:
-      - ssl://u1.hp.com:8884
-              
+
 role:
   users:
     - 
@@ -404,26 +238,4 @@ role:
       user: superAdmin
       password: 12345678@test1
 
-file:
-  tmp-delete: false
 
-fdfs:
-  so-timeout: 1501
-  connect-timeout: 601
-  thumb-image:
-    width: 150
-    height: 150  
-  tracker-list:
-    - 172.16.177.88:22122
-    - 172.16.44.46:22122
-
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: starter
-    send-message-timeout: 3000
-    compress-message-body-threshold: 4096
-    max-message-size: 4194304
-    retry-times-when-send-async-failed: 2
-    retry-next-server: true
-    retry-times-when-send-failed: 2

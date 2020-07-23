@@ -7,7 +7,6 @@
 package com.hptiger.starter.config;
 
 
-import com.hptiger.starter.config.interceptor.AppAuthInterceptor;
 import com.hptiger.starter.config.interceptor.SpringPerformanceInterceptor;
 import com.hptiger.starter.converter.UniversalEnumConverterFactory;
 import org.slf4j.Logger;
@@ -30,17 +29,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(springPerformanceInterceptor());
-		registry.addInterceptor(appAuthInterceptor()).addPathPatterns("/app/**");
+		registry.addInterceptor(springPerformanceInterceptor());		
 	}
 	
 	@Bean
 	public SpringPerformanceInterceptor springPerformanceInterceptor() {
 		return new SpringPerformanceInterceptor();
 	}
-	
-	@Bean
-	public AppAuthInterceptor appAuthInterceptor() {
-		return new AppAuthInterceptor();
-	}
 }
+

@@ -153,36 +153,6 @@ DEFAULT CHARACTER SET = DEFAULT
 COMMENT = 'Third Part APP Management';
 
 
--- -----------------------------------------------------
--- Table `app_message`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `app_message` ;
-
-CREATE TABLE IF NOT EXISTS `app_message` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-  `created_by` BIGINT(20) NULL DEFAULT NULL COMMENT '创建人ID',
-  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
-  `updated_by` BIGINT(20) NULL DEFAULT NULL COMMENT '更新人',
-  `del_flag` CHAR(1) NOT NULL DEFAULT '0' COMMENT '删除标志',
-  `message_id` VARCHAR(50) NOT NULL COMMENT '消息ID，对外',
-  `app_id` VARCHAR(50) NOT NULL COMMENT 'App ID',
-  `mq_msg_id` VARCHAR(50) NULL COMMENT 'MQ Message ID',
-  `receive_date` TIMESTAMP NULL COMMENT '消息到达接口时间',
-  `queuing_date` TIMESTAMP NULL COMMENT '消息发布到MQ时间',
-  `send_date` TIMESTAMP NULL COMMENT '消息请求发送时间',
-  `cancel_date` TIMESTAMP NULL COMMENT '消息取消时间',
-  `status` CHAR(6) NOT NULL COMMENT '状态',
-  `reason` VARCHAR(200) NULL COMMENT '缘由',
-  `message_class` VARCHAR(6) NOT NULL COMMENT '消息大类',
-  `message_type` VARCHAR(6) NULL COMMENT '消息小类',
-  `content` VARCHAR(500) NOT NULL COMMENT '消息内容',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = DEFAULT
-COMMENT = '消息';
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -42,31 +42,18 @@ public class SwaggerConfig {
 				.paths(PathSelectors.ant("/api/**"))
 				.build()
 				.securitySchemes(newArrayList(apiKey()))
-				.tags(
-						new Tag("File","文件服务器"),						
-						new Tag("Home","Home"),						
-						new Tag("SMS","短信服务"),
+				.tags(					
+						new Tag("Home","Home"),	
 						new Tag("Auth","认证"),
-						new Tag("Dict","数据字典"),
-						new Tag("App","App密钥"),
-						new Tag("Message","消息")
+						new Tag("Dict","数据字典")
 				);
 	}
-
-//	private Predicate<String> businessOnlyEndpoints() {
-//		return new Predicate<String>() {
-//			@Override
-//			public boolean apply(String input) {
-//				return !input.contains("error");
-//			}
-//		};
-//	}
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title(applicationName + " Service API Online")
 				.description(apiChangeHistory("app_api_changehistory.md"))
-				.contact(new Contact("John Zhuang", "", "yinping.zhuang@hp.com"))
+				.contact(new Contact("John Zhuang", "", "zhuangyinping@gmail.com"))
 				.version("1.0.0-SNAPSHOT")
 				.build();
 	}
@@ -85,43 +72,5 @@ public class SwaggerConfig {
 			e.printStackTrace();
 			return null;
 		}
-	}
-	
-	@Bean
-	public Docket appApi() {	
-		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("APP Service")
-				.apiInfo(appInfo())
-				.select()
-				.paths(PathSelectors.ant("/app/**")).build()
-				.securitySchemes(newArrayList(apiAppId(), apiAppSecurity()))				
-				.tags(
-						new Tag("AppMessages","App消息")
-				);
-	}	
-
-	@Value("${app_api.header.appId}")
-	private String appIdHeader;
-	
-	@Value("${app_api.header.appSecurity}")
-	private String appSecurityHeader;
-	
-	@Bean
-	SecurityScheme apiAppId() {
-		return new ApiKey("appId", appIdHeader, "header");
-	}
-
-	@Bean
-	SecurityScheme apiAppSecurity() {
-		return new ApiKey("appSecurity", appSecurityHeader, "header");
-	}
-	
-	private ApiInfo appInfo() {		
-		return new ApiInfoBuilder()
-				.title(applicationName + " APP API Online")
-				.description(apiChangeHistory("service_api_changehistory.md"))
-				.contact(new Contact("John Zhuang", "", "yinping.zhuang@hp.com"))
-				.version("1.0.0-SNAPSHOT")
-				.build();
 	}
 }
