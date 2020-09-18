@@ -97,8 +97,8 @@ logging:
 app:
   defaultPassword: 12345678
   mini:
-    appId: wx209e977d979fe4cf
-    appSecret: 749dda22168af8c9ee557f0ea6087393
+    appId: xfsfsfsxxx
+    appSecret: fsfsfsf
     loginURL: https://api.weixin.qq.com/sns/jscode2session?appid=${app.mini.appId}&secret=${app.mini.appSecret}&js_code=%s&grant_type=authorization_code
   aliyun:
     aliyun-configs:
