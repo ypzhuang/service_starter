@@ -104,8 +104,8 @@ app:
     aliyun-configs:
       - 
         tenent-code: ORG10001         
-        access-key-id: LTAIhF7Jr6UCZqTU
-        access-secret: uk4fqYHKse0KYnMkBhf7FFWfTiNoaT        
+        access-key-id: xxx
+        access-secret: fsfsff        
         sms-config:
           sign-name:  虎虎研发
           mock: true
