@@ -6,13 +6,13 @@
 * docker && docker-compose
 
 
-## Start basic service as DB , Redis 
+## Start basic service as DB , Redis
 
 ```
 docker-compose -f db/docker-compose.yml up -d
 ```
 
-## Start Apache RocketMQ 
+## Start Apache RocketMQ
 
 ```
 
@@ -26,12 +26,12 @@ nohup sh bin/mqbroker -n localhost:9876 &
 ## Start Starter Service
 * start with default  dev profile
 ```
-./gradlew bootRun
+./gradlew --init-script ./init.gradle bootRun
 ```
 
 * or start with prod profile
 ```
-./gradlew bootRun --args='--spring.profiles.active=prod'
+./gradlew --init-script ./init.gradle bootRun --args='--spring.profiles.active=prod'
 ```
 
 ## Test
@@ -40,7 +40,7 @@ nohup sh bin/mqbroker -n localhost:9876 &
 
 open build/reports/tests/test/index.html build/reports/tests/integrationTest/index.html
 ```
-### Unit Test 
+### Unit Test
 ```
 ./gradlew test
 open build/reports/tests/test/index.html
@@ -76,9 +76,9 @@ docker build -t service-starter .
  -e "SPRING_PROFILES_ACTIVE=dev" \
  -e "spring_datasource_url=jdbc:mysql://IP:3306/starter?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false" \
  -p 9080:8080  --rm  service-starter
-  
+
  *** change IP to your own IP ***
- 
+
 open http://localhost:9080
 
 ```
@@ -100,9 +100,3 @@ open http://localhost:9080
 1. (Optional)If you have defined a column with 6 chars length for a dictionary, you can create a enum in com.hptiger.starter.entity.enums package, then
 change the property of Entity from String to this Enum class.  The dictionary can be input in the excel file db/model/init_sql.xlsx, then copy the sql
 to the file: src/main/resources/init.sql
-
-
-
-
-
-
